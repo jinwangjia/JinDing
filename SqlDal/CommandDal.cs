@@ -11,7 +11,7 @@ namespace SqlDal
         {
             using (var dal = new BaseDal())
             {
-                return dal.Command.Where(o => o.FunctionId == functionId).OrderBy(o => o.CommandName).ToList();
+                return dal.Command.Where(o => o.FunctionId == functionId).OrderBy(o => o.Index).ToList();
             }
         }
 

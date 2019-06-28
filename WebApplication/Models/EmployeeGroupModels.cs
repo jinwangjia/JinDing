@@ -162,6 +162,5 @@ namespace WebApplication.Models
             CreateMap<EmployeeGroupUpdateModel, EmployeeGroupDefinition>();
             CreateMap<EmployeeGroupDefinition, EmployeeGroupJsonIndexModel>();
         }
-
-}
+    }
 }

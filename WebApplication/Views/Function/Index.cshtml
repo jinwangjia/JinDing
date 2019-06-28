@@ -5,20 +5,20 @@
 
 
 <div class="easyui-layout" fit="true">
-    <div data-options="region:'east',split:true" title="命令" style="width:600px;padding: 3px 3px 3px 3px;">
-            <table id="tt2" class="easyui-datagrid" fit="true" fitColumns="false" toolbar="#tb"
-            singleSelect="true" pagination="false" striped="true" rownumbers="true">
+    <div data-options="region:'west',split:true" title="功能" style="width:600px;padding: 3px 3px 3px 3px;">
+        <table id="tt"></table>
+    </div>
+    <div region="center" border="false" title="命令" style=" padding: 3px 3px 3px 3px;">
+        <table id="tt2" class="easyui-datagrid" fit="true" fitColumns="false" toolbar="#tb"
+               singleSelect="true" pagination="false" striped="true" rownumbers="true">
             <thead>
-                <th field="CommandName" align="left" width="250">名称</th>
-                <th field="OnClick" align="left" width="150">动作</th>
-                <th field="Index" align="left" width="150">顺序</th>
-                <th field="IconCls" align="left" width="150">图标</th>
-                @*<th field="Href" align="left" width="150">链接</th>*@
+            <th field="CommandName" align="left" width="250">名称</th>
+            <th field="OnClick" align="left" width="150">动作</th>
+            <th field="Index" align="left" width="150">顺序</th>
+            <th field="IconCls" align="left" width="150">图标</th>
+            @*<th field="Href" align="left" width="150">链接</th>*@
             </thead>
         </table>
-    </div>
-    <div region="center" border="false" title="功能" style=" padding: 3px 3px 3px 3px;">
-        <table id="tt"></table>
     </div>
 </div>
 

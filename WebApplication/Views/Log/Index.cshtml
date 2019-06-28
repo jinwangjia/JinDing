@@ -1,0 +1,80 @@
+﻿@model WebApplication.Models.LogJsonIndexModel
+@using SqlDal;
+@using Model;
+
+@{
+    ViewBag.Title = "Index";
+    var currentPage = "/Log/Index";
+    var function = new FunctionDal().FindByPage(currentPage);
+}
+
+<div class="easyui-layout" fit="true">
+    <div region="north" border="false">
+        <div style="height:30px; padding:6px 5px 3px 5px;">
+            <span>@Html.LabelFor(o => o.BeginDateTime)@Html.TextBoxFor(o => o.BeginDateTime, new { Class = "easyui-datebox", Style = "width:100px" })</span>
+            <span>到 @Html.TextBoxFor(o => o.EndDateTime, new { Class = "easyui-datebox", Style = "width:100px" })</span>
+            <span><input type="button" value="查询" onclick="queryData()" /></span>      
+        </div>
+
+    </div>
+    <div region="center" border="false" style=" padding:3px 3px 3px 3px ;">
+        <table id="tt" class="easyui-datagrid" fit="true" fitColumns="false" toolbar="#tb"
+            singleSelect="true" pagination="true" pagelist="[50]" pagesize="50" striped="true" rownumbers="true"
+            url="/Log/JsonIndex">
+            <thead>
+                @await Html.PartialAsync("_TableColumn", new PartialTableColumnModel() { FunctionId = function.FunctionId, CurrentAdmin = Model.CurrentAdmin })
+            </thead>
+        </table>
+    </div>
+</div>
+
+<div id="tb">
+    @await Html.PartialAsync("_TableCommand", new PartialTableCommandModel() { FunctionId = function.FunctionId, CurrentAdmin = Model.CurrentAdmin })
+</div>
+
+<script type="text/javascript">
+
+    function tableColumn() {
+        window.location.href = "/TableColumn/Index?functionId=@(function.FunctionId)&returnUrl=@(function.Page)";
+    }
+
+    function formatter(data, rec) {
+        return data;
+    }
+
+    function queryData() {
+
+        var beginDateTime = $("#BeginDateTime");
+        var endDateTime = $("#EndDateTime");
+        
+        var beginDateTimeVal = beginDateTime.val();
+        var endDateTimeVal = endDateTime.val();
+
+        $("#tt").datagrid({
+            queryParams: {
+                beginDateTime: beginDateTimeVal,
+                endDateTime: endDateTimeVal
+            },
+            pageNumber: 1
+        });
+
+        closePaginationOptions();
+    }
+
+    function closePaginationOptions() {
+        //设置分页控件
+        var p = $("#tt").datagrid('getPager');
+        $(p).pagination({
+            showPageList: false,
+            showRefresh: false
+        });
+    }
+
+    $(document).ready(function () {
+        closePaginationOptions();
+    });
+
+
+</script>
+
+

@@ -1,7 +1,9 @@
-﻿using Model;
+﻿using AutoMapper;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,11 +33,71 @@ namespace WebApplication.Models
 
     public class GrainAddModel
     {
-
+        /// <summary>
+        /// 物料名称
+        /// </summary>
+        [DisplayName("物料名称")]
+        [Required(ErrorMessage = "{0}不能为空")]
+        [StringLength(40, MinimumLength = 1, ErrorMessage = "{0}的长度必须大于等于{2}小于等于{1} ")]
+        public string GrainName { get; set; }
+        /// <summary>
+        /// 物料编码
+        /// </summary>
+        [DisplayName("物料编码")]
+        [Required(ErrorMessage = "{0}不能为空")]
+        public string GrainCode { get; set; }
+        /// <summary>
+        /// 物料助记码
+        /// </summary>
+        [DisplayName("物料助记码")]
+        [Required(ErrorMessage = "{0}不能为空")]
+        public string GrainPinYin { get; set; }
     }
 
     public class GrainUpdateModel
     {
+        /// <summary>
+        /// 物料标示
+        /// </summary>
+        [DisplayName("物料标示")]
+        [Required(ErrorMessage = "{0}不能为空")]
+        public string GrainId { get; set; }
+        /// <summary>
+        /// 物料名称
+        /// </summary>
+        [DisplayName("物料名称")]
+        [Required(ErrorMessage = "{0}不能为空")]
+        [StringLength(40, MinimumLength = 1, ErrorMessage = "{0}的长度必须大于等于{2}小于等于{1} ")]
+        public string GrainName { get; set; }
+        /// <summary>
+        /// 物料编码
+        /// </summary>
+        [DisplayName("物料编码")]
+        [Required(ErrorMessage = "{0}不能为空")]
+        public string GrainCode { get; set; }
+        /// <summary>
+        /// 物料助记码
+        /// </summary>
+        [DisplayName("物料助记码")]
+        [Required(ErrorMessage = "{0}不能为空")]
+        public string GrainPinYin { get; set; }
+    }
+
+    public class GrainProfile : Profile, IProfile
+    {
+        public GrainProfile()
+        {
+            CreateMap<GrainAddModel, GrainDefinition>().BeforeMap((dto, p) =>
+            {
+                p.GrainId = Guid.NewGuid().ToString();
+            });
+
+            CreateMap<GrainDefinition, GrainUpdateModel>();
+            CreateMap<GrainUpdateModel, GrainDefinition>();
+            CreateMap<GrainDefinition, GrainJsonIndexModel>();
+        }
+
 
     }
+
 }
