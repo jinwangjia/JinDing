@@ -1,0 +1,153 @@
+﻿@model WebApplication.Models.EmployeeGroupIndexModel
+@using SqlDal;
+@using Model;
+@using System.Linq;
+
+@{
+    ViewData["Title"] = "Index";
+    var currentPage = "/EmployeeGroup/Index";
+    var function = new FunctionDal().FindByPage(currentPage);
+}
+
+<div class="easyui-layout" fit="true">
+    <div region="north" border="false">
+        <div style="height:30px; padding:6px 5px 3px 5px;">
+            <span><input type="button" value="查询" onclick="queryData()" /></span>
+        </div>
+
+    </div>
+    <div region="center" border="false" style=" padding:3px 3px 3px 3px ;">
+        <table id="tt" class="easyui-datagrid" fit="true" fitColumns="false" toolbar="#tb"
+               singleSelect="true" pagination="true" pagelist="[50]" pagesize="50" striped="true" rownumbers="true"
+               url="/EmployeeGroup/JsonIndex">
+            <thead>
+                @await Html.PartialAsync("_TableColumn", new PartialTableColumnModel() { FunctionId = function.FunctionId, CurrentAdmin = Model.CurrentAdmin })
+            </thead>
+            </table>
+        </div>
+    </div>
+
+<div id="tb">
+    @await Html.PartialAsync("_TableCommand", new PartialTableCommandModel() { FunctionId = function.FunctionId, CurrentAdmin = Model.CurrentAdmin })
+</div>
+
+    <script type="text/javascript">
+
+    function tableColumn() {
+        window.location.href = "/TableColumn/Index?functionId=@(function.FunctionId)&returnUrl=@(function.Page)";
+    }
+
+
+
+    function add() {
+
+        $("#modalwindow").html("<iframe width='100%' height='100%' scrolling='auto' frameborder='0'' src='/EmployeeGroup/Add'></iframe>");
+        $("#modalwindow").window({ title: '添加', width: 700, height: 400, left: ($(window).width() - 700) / 2, top: ($(window).height() - 400) / 2,
+            iconCls: 'icon-add'
+        }).window('open');
+
+    }
+
+    function update() {
+        var row = $('#tt').datagrid('getSelected');
+        if (row == null) {
+            $.messageBox5s('提示', '请选择要操作的记录');
+            return;
+        } else {
+            var str = "<iframe width='100%' height='100%' scrolling='auto' frameborder='0'' src='/EmployeeGroup/Update?EmployeeGroupId=" + row.EmployeeGroupId + "'></iframe>";
+            $("#modalwindow").html(str);
+            $("#modalwindow").window({
+                title: '修改',
+                width: 700,
+                height: 400,
+                left: ($(window).width() - 700) / 2,
+                top: ($(window).height() - 400) / 2,
+                iconCls: 'icon-edit'
+            }).window('open');
+        }
+    }
+
+    function del() {
+
+        var row = $('#tt').datagrid('getSelected');
+        if (row != null) {
+            $.messager.confirm('提示', '确定删除', function (r) {
+                if (r) {
+                    $.post("/EmployeeGroup/Delete?EmployeeGroupId=" + row.EmployeeGroupId, function (data) {
+                        if (data.state == "ok") {
+                            $.messageBox5s('提示', "删除成功");
+                            loadData();
+                        } else {
+                            $.messageBox5s('提示', data.data);
+                        }
+                    }, "json");
+
+                }
+            });
+        } else {
+            $.messageBox5s('提示', '请选择要操作的记录'); 
+        }
+
+    }
+
+    function queryData() {
+
+        $("#tt").datagrid({
+            pageNumber: 1
+        });
+
+        closePaginationOptions();
+    }
+
+    function closePaginationOptions() {
+        //设置分页控件
+        var p = $("#tt").datagrid('getPager');
+        $(p).pagination({
+            showPageList: false,
+            showRefresh: false
+        });
+    }
+
+
+
+    function loadData() {
+        $("#tt").datagrid("load");
+    }
+
+
+    function returnDeleteTrue() {
+        $.messageBox5s("提示", "成功");
+        $("#modalwindow").window("close");
+        loadData();
+    }
+
+    function frameReturnUpdateTrue() {
+        $.messageBox5s("提示", "成功");
+        $("#modalwindow").window("close");
+        loadData();
+    }
+
+    function frameReturnAddTrue() {
+        $.messageBox5s("提示", "成功");
+        $("#modalwindow").window("close");
+        loadData();
+    }
+
+        function frameReturnFalse(data) {
+            if (data) {
+                $.messageBox5s("提示", data);
+            } else {
+                $.messageBox5s("提示", "失败");
+            }
+        }
+
+    $(document).ready(function () {
+        closePaginationOptions();
+    });
+
+
+    </script>
+
+
+
+

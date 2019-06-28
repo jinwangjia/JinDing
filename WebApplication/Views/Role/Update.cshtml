@@ -1,0 +1,50 @@
+﻿@model WebApplication.Models.RoleUpdateModel
+
+@{
+    ViewBag.Title = "Update";
+}
+
+
+<div class="easyui-layout" data-options="fit:true">
+	<div data-options="region:'center'" style="padding:10px;">
+		@using (Html.BeginForm("Update", "Role", FormMethod.Post, new { id = "Update", autocomplete = "off" }))
+        {      
+            @Html.HiddenFor(o=>o.RoleId)
+            <table width="100%" border="0" align="center" cellpadding="5" cellspacing="1">
+                <tr>
+                    <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.Name)</td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        @Html.TextBoxFor(m => m.Name)
+                        @Html.ValidationMessageFor(m => m.Name)
+                    </td>
+                </tr>
+            </table>    
+        }
+	</div>
+	<div data-options="region:'south',border:false" style="text-align:right;padding:5px 5px 5px 5px;">
+		<a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)" onclick="javascript:submit1()" style="width:80px">确定</a>
+		@*<a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="javascript:alert('cancel')" style="width:80px">取消</a>*@
+	</div>
+</div>
+
+<script type="text/javascript">
+
+    function submit1() {
+        $.ajax({
+            url: "/Role/Update",
+            type: "Post",
+            data: $("#Update").serialize(),
+            dataType: "json",
+            success: function (data) {
+                if (data == 1) {
+                    window.parent.frameReturnUpdateTrue();
+                }
+                else {
+                    window.parent.frameReturnFalse();
+                }
+            }
+        });
+    }
+</script>
+
+

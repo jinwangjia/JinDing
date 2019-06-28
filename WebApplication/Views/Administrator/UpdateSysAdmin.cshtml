@@ -1,0 +1,88 @@
+﻿@model WebApplication.Models.AdministratorUpdateSysAdminModel
+
+@{
+    ViewBag.Title = "UpdateSysAdmin";
+}
+
+
+<div class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'center'" style="padding:10px;">
+        @using (Html.BeginForm("UpdateSysAdmin", "Administrator", FormMethod.Post, new { id = "UpdateSysAdmin", autocomplete = "off" }))
+        {
+            @Html.HiddenFor(o => o.AdministratorId)
+            <table width="100%" border="0" align="center" cellpadding="5" cellspacing="1">
+                <tr>
+                    <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.Name)</td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        @Html.TextBoxFor(m => m.Name)
+                        @Html.ValidationMessageFor(m => m.Name)
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.Accounts)</td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        @Html.TextBoxFor(m => m.Accounts)
+                        @Html.ValidationMessageFor(m => m.Accounts)
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.PassWord)</td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        @Html.PasswordFor(m => m.PassWord)
+                        @Html.ValidationMessageFor(m => m.PassWord)
+                        <br />
+                        <span>密码为空不修改</span>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.Phone)</td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        @Html.TextBoxFor(m => m.Phone)
+                        @Html.ValidationMessageFor(m => m.Phone)
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#F6F6F6"></td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        <span class="f12red">@ViewBag.Message</span>
+                    </td>
+                </tr>
+            </table>
+            <input name="Accounts1" type="text" style="width:1px;height:1px;" />
+            <input name="Password1" type="password" style="width:1px;height:1px;" />
+        }
+    </div>
+	<div data-options="region:'south',border:false" style="text-align:right;padding:5px 5px 5px 5px;">
+		<a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)" onclick="javascript:submit1()" style="width:80px">确定</a>
+		@*<a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="javascript:alert('cancel')" style="width:80px">取消</a>*@
+	</div>
+</div>
+
+<script type="text/javascript">
+
+    function submit1() {
+        if ($("form").valid()) {
+            $.ajax({
+                url: "/Administrator/UpdateSysAdmin",
+                type: "Post",
+                data: $("#UpdateSysAdmin").serialize(),
+                dataType: "json",
+                success: function (data) {
+                    if (data == 1) {
+                        window.parent.frameReturnAddTrue();
+                    }
+                    else {
+                        window.parent.frameReturnFalse();
+                    }
+                }
+            });
+        }
+    }
+
+</script>
+
+
+
+
+

@@ -1,0 +1,34 @@
+﻿@model WebApplication.Models.PartialTableColumnModel;
+@using SqlDal;
+
+@{
+    var tableColumnAndAdminDal = new TableColumnAndAdminDal();
+    var tableColumnDal = new TableColumnDal();
+    if (Model.CurrentAdmin.SysAdmin)
+    {
+        var tableColumnList = tableColumnDal.QueryByFunctionIdAndVisible(Model.FunctionId);
+        foreach (var p in tableColumnList)
+        {
+            <th field="@(p.Field)" align="@(p.Align)" width="@(p.Width)">@(p.Name)</th>
+        }
+    }
+    else
+    {
+        var tableColumnAndAdminList = tableColumnAndAdminDal.QueryByAdministratorIdFunctionIdAndVisible(Model.CurrentAdmin.AdministratorId, Model.FunctionId);
+        if (tableColumnAndAdminList.Count > 0)
+        {
+            foreach (var p in tableColumnAndAdminList)
+            {
+                <th field="@(p.Field)" align="@(p.Align)" width="@(p.Width)">@(p.Name)</th>
+            }
+        }
+        else
+        {
+            var tableColumnList = tableColumnDal.QueryByFunctionIdAndVisible(Model.FunctionId);
+            foreach (var p in tableColumnList)
+            {
+                <th field="@(p.Field)" align="@(p.Align)" width="@(p.Width)">@(p.Name)</th>
+            }
+        }
+    }
+}

@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>@ViewBag.Title</title>
+    <script src="~/js/jquery-1.4.4.js"></script>
+    <script src="~/js/jquery.validate.js"></script>
+    <script src="~/js/jquery.validate.unobtrusive.js"></script>
+    <link href="~/jquery-easyui-1.3/themes/icon.css" rel="stylesheet" />
+    <link href="~/jquery-easyui-1.3/themes/default/easyui.css" rel="stylesheet" />
+    <script src="~/jquery-easyui-1.3/jquery.easyui.min.js"></script>
+    <script src="~/jquery-easyui-1.3/locale/easyui-lang-zh_CN.js"></script>
+    <script src="~/jquery.easyui.plus.js"></script>
+</head>
+
+<body>
+    @RenderBody()
+    <div id="modalwindow" class="easyui-window" data-options="modal:true,closed:true,minimizable:false,shadow:false"></div>
+</body>
+</html>

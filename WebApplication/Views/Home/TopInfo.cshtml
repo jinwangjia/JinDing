@@ -1,0 +1,35 @@
+﻿@model WebApplication.Models.HomeModelTopInfo
+
+@{
+    ViewBag.Title = "TopInfo";
+    Layout = null;
+}
+
+<ul class="dropdown-menu">
+    <!-- User image -->
+    <li class="user-header">
+        <img src="@Url.Content("~/content/Images/photo.jpg")" class="img-circle" alt="User Image">
+        <p>
+            账号信息
+            <small>@(Model.CurrentAdmin.Name)</small>
+        </p>
+    </li>
+    <!-- Menu Body -->
+    @*<li class="user-body">
+        <div class="col-xs-4 text-center">
+            <a href="#">Followers</a>
+        </div>
+        <div class="col-xs-4 text-center">
+            <a href="#">Sales</a>
+        </div>
+        <div class="col-xs-4 text-center">
+            <a href="#">Friends</a>
+        </div>
+    </li>*@
+    <!-- Menu Footer-->
+    <li class="endbtndiv" style="margin-top:5px;">
+        <a href="javascript:Profile();" class="easyui-linkbutton btns" style="float:left; margin-left:10px;">修改账号</a>
+        <a href="javascript:SignOut();" class="easyui-linkbutton btnc" style="width:80px;">退出</a>
+    </li>
+</ul>
+

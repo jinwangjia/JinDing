@@ -1,0 +1,60 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>F20</title>
+    <link href="~/css/style.css" rel="stylesheet" />
+    <script src="~/js/jquery-1.4.4.js"></script>
+    <script src="~/js/cloud.js"></script>
+    <script language="javascript">
+        $(function () {
+            $('.loginbox').css({ 'position': 'absolute', 'left': ($(window).width() - 692) / 2 });
+            $(window).resize(function () {
+                $('.loginbox').css({ 'position': 'absolute', 'left': ($(window).width() - 692) / 2 });
+            })
+        });
+    </script>
+</head>
+
+<body style="background-color:#1c77ac; background-image:url(../images/light.png); background-repeat:no-repeat; background-position:center top; overflow:hidden;">
+    <div id="mainBody">
+        <div id="cloud1" class="cloud"></div>
+        <div id="cloud2" class="cloud"></div>
+    </div>
+    <div class="logintop">
+        <span>F20</span>
+    </div>
+    <div>
+
+    </div>
+    <div class="loginbody">
+        @*<span class="systemlogo"></span>*@
+        <form name="form1" method="post" action="/Account/LogOn">
+            <div class="loginbox">
+                <ul>
+                    <li>
+                        <input id="Accounts" name="Accounts" type="text" placeholder="账户" class="loginuser" autocomplete="off" />
+                    </li>
+                    <li>
+                        <input id="Password" name="Password" type="password" placeholder="密码" class="loginpwd" autocomplete="off" />
+                    </li>
+                    <li>
+                        <input name="sm1" type="submit" class="loginbtn" value="登录" />
+                    </li>
+                </ul>
+            </div>
+            <input name="Accounts1" type="text" style="width:1px;height:1px;" />
+            <input name="Password1" type="password" style="width:1px;height:1px;" />
+        </form>
+        <div>@Html.ValidationSummary(true, "登录失败. 请重试.", new { Class = "" }) </div>
+
+    </div>
+    <div class="loginbm"><a href="https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&ch=&tn=baidu&bar=&wd=%E5%94%90%E5%B1%B1%E9%87%91%E9%BC%8E%E8%87%AA%E6%8E%A7%E6%8A%80%E6%9C%AF%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8&oq=%25E5%2594%2590%25E5%25B1%25B1%25E9%2587%2591%25E9%25BC%258E%25E8%2587%25AA%25E6%258E%25A7%25E6%258A%2580%25E6%259C%25AF%25E6%259C%2589%25E9%2599%2590%25E5%2585%25AC%25E5%258F%25B8&rsv_pq=82df3d3400045213&rsv_t=1012ynEBC5E8HIz8lWFWeY7xruva0KzGB8Y1HPklkBMqUoQQooiIWfcYXeA&rqlang=cn&rsv_enter=0&inputT=22211" target="_blank">版权所有：唐山金鼎自控技术有限公司</a></div>
+</body>
+</html>

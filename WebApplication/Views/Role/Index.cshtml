@@ -1,0 +1,338 @@
+﻿@model WebApplication.Models.RoleIndexModel
+@using SqlDal;
+@using Model;
+@using Infrastructure;
+
+@{
+    ViewBag.Title = "角色管理";
+
+    var currentPage = "/Role/Index";
+    var function = new FunctionDal().FindByPage(currentPage);
+
+}
+
+
+<div class="easyui-layout" fit="true">
+    <div data-options="region:'east',split:true" title="权限" style="width:900px;padding: 3px 3px 3px 3px;">
+        <table id="tt"></table>
+    </div>
+    <div region="center" border="false" title="角色" style=" padding: 3px 3px 3px 3px;">
+        <table id="tt2" name="tt2" class="easyui-datagrid" fit="true" fitColumns="false" toolbar="#tb"
+               singleSelect="true" pagination="false" striped="true" rownumbers="true" url="/Role/JsonIndex">
+            <thead>
+            <th field="Name" align="left" width="100">名称</th>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<div id="tb">
+    @await Html.PartialAsync("_TableCommand", new PartialTableCommandModel() { FunctionId = function.FunctionId, CurrentAdmin = Model.CurrentAdmin })
+</div>
+
+<style type="text/css">
+    .editclsdelete {
+    }
+
+    .editclsupdate {
+    }
+
+    .editclsUp {
+    }
+
+    .editclsDown {
+    }
+
+    .editclsShow {
+    }
+
+    .editclsHide {
+    }
+</style>
+
+<script type="text/javascript">
+
+    function addRole() {
+        $("#modalwindow").html("<iframe width='100%' height='100%' scrolling='auto' frameborder='0'' src='/Role/Add'></iframe>");
+        $("#modalwindow").window({
+            title: '添加', width: 700, height: 400, left: ($(window).width() - 700) / 2, top: ($(window).height() - 400) / 2,
+            iconCls: 'icon-add'
+        }).window('open');
+    }
+
+    function updateRole() {
+        var row = $('#tt2').datagrid('getSelected');
+        if (row == null) {
+            $.messageBox5s('提示', '请选择要操作的记录');
+            return;
+        } else {
+            var str = "<iframe width='100%' height='100%' scrolling='auto' frameborder='0'' src='/Role/Update?RoleId=" + row.RoleId + "'></iframe>";
+            $("#modalwindow").html(str);
+            $("#modalwindow").window({
+                title: '修改',
+                width: 700,
+                height: 400,
+                left: ($(window).width() - 700) / 2,
+                top: ($(window).height() - 400) / 2,
+                iconCls: 'icon-edit'
+            }).window('open');
+        }
+    }
+
+    function delRole() {
+        var row = $('#tt2').datagrid('getSelected');
+        if (row != null) {
+            $.messager.confirm('提示', '确定删除', function (r) {
+                if (r) {
+                    $.post("/Role/Delete?RoleId=" + row.RoleId, function (data) {
+                        if (data == 1) {
+                            $.messageBox5s('提示', "删除成功");
+                            loadData();
+                        } else {
+                            $.messageBox5s('提示', data);
+                        }
+                    }, "json");
+                }
+            });
+        } else { $.messageBox5s('提示', '请选择要操作的记录'); }
+    }
+
+    function onClickRoleRow(index, row) {
+        var row = $('#tt2').datagrid('getSelected');
+        if (row != null) {
+            $.messageBox5s('提示', '请选择要操作的记录');
+            return;
+        }
+    }
+
+    function frameReturnAddCommandTrue() {
+        var row = $('#tt').treegrid('getSelected');
+        if (row == null) {
+            $.messageBox5s('提示', '请选择要操作的记录');
+            return;
+        } else {
+            $.messageBox5s("提示", "成功");
+            $("#modalwindow").window("close");
+            $("#tt2").datagrid({
+                queryParams: {
+                    functionId: row.functionId
+                }
+            });
+        }
+    }
+
+
+    function frameReturnUpdateCommandTrue() {
+        var row = $('#tt').treegrid('getSelected');
+        if (row == null) {
+            $.messageBox5s('提示', '请选择要操作的记录');
+            return;
+        } else {
+            $.messageBox5s("提示", "成功");
+            $("#modalwindow").window("close");
+            $("#tt2").datagrid({
+                queryParams: {
+                    functionId: row.functionId
+                }
+            });
+        }
+    }
+
+
+    function ShowTreegrid() {
+        $('#tt').treegrid({
+            rownumbers: true,
+            fit: true,
+            url: '/Function/JQueryTreeGridAndCommand?id=0',
+            idField: 'functionId',
+            treeField: 'name',
+            toolbar: [{
+                text: '保存',
+                iconCls: 'icon-save',
+                handler: function () {
+                    save();
+                }
+            }],
+            columns: [[
+                {
+                    field: 'name', title: '功能', width: 160, align: 'left', formatter: function (val, row) {
+                        return "<input value=" + row.functionId + " id='FunctionIds' name='FunctionIds' type='checkbox' />" + row.name;
+                    }
+                },
+                {
+                    field: 'CommandIds', title: '命令', width: 460, align: 'left', formatter: function (val, row) {
+                        if (row.CommandIds.length > 0) {
+                            var arr = row.CommandIds;
+                            var str = "";
+                            while (arr.length > 0) {
+                                str = str + "<div style='float:left;width:180px;'><input value=" + arr.pop() + " id='CommandIds' name='CommandIds' type='checkbox' />" + arr.pop() + "</div>";
+                            }
+                            return str + "<div style='clear:both;'></div>";
+                        }
+                        return row.CommandIds;
+                    }
+                }
+            ]],
+
+            onBeforeExpand: function (node, param) {
+                $('#tt').treegrid('options').url = "/Function/JQueryTreeGridAndCommand?Id=" + node.functionId;
+            },
+            onLoadSuccess: function (node, data) {//加载成功后调用事件
+                var tree = $(this);
+                if (data) {
+                    $(data).each(function (index, d) {
+                        if (this.state == 'closed') {
+                            tree.treegrid('expandAll');
+                        }
+                    });
+                };
+            }
+        });
+    }
+
+    function formatcheckbox(val, row) {
+        return "<input type='checkbox'/>" + row.Name;
+    }
+
+    function save() {
+
+        var row = $('#tt2').datagrid('getSelected');
+        if (row == null) {
+            $.messageBox5s('提示', '请选择要操作的记录');
+            return;
+        }
+
+        var roleData = "RoleId=" + row.RoleId;
+        var checkBoxData = $(":checkbox").serialize();
+
+        var data = roleData + "&" + checkBoxData;
+
+        $.ajax({
+            url: "/Role/Save",
+            type: "Post",
+            data: data,
+            dataType: "json",
+            success: function (data) {
+                if (data == 1) {
+                    $.messageBox5s('提示', '保存成功');
+                }
+                else {
+                    $.messageBox5s('提示', data);
+                }
+            }
+        });
+    }
+
+    function update() {
+        var row = $('#tt').treegrid('getSelected');
+        if (row == null) {
+            $.messageBox5s('提示', '请选择要操作的记录');
+            return;
+        } else {
+            var str = "<iframe width='100%' height='100%' scrolling='auto' frameborder='0'' src='/Function/Update?id=" + row.functionId + "'></iframe>";
+            $("#modalwindow").html(str);
+            $("#modalwindow").window({
+                title: '修改',
+                width: 700,
+                height: 400,
+                left: ($(window).width() - 700) / 2,
+                top: ($(window).height() - 400) / 2,
+                iconCls: 'icon-edit'
+            }).window('open');
+        }
+    }
+
+    function del() {
+        var row = $('#tt').treegrid('getSelected');
+        if (row != null) {
+            $.messager.confirm('提示', '确定删除', function (r) {
+                if (r) {
+                    $.post("/Function/Delete?id=" + row.functionId, function (data) {
+                        if (data == 1) {
+                            $.messageBox5s('提示', "删除成功");
+                            loadData();
+                        }
+                    }, "json");
+
+                }
+            });
+        } else { $.messageBox5s('提示', '请选择要操作的记录'); }
+    }
+
+    function reload() {
+        var row = $('#tt').treegrid('getSelected');
+        var level = $("#tt").treegrid("getLevel", row.functionId);
+        if (level >= 2) {
+            row = $("#tt").treegrid("getParent", row.functionId);
+        };
+        $("#tt").treegrid("reload");
+
+    }
+
+    function frameReturnUpdateTrue() {
+        $.messageBox5s("提示", "成功");
+        $("#modalwindow").window("close");
+        loadData();
+        //reload();
+    }
+
+    function frameReturnAddTrue() {
+        $.messageBox5s("提示", "成功");
+        $("#modalwindow").window("close");
+        loadData();
+    }
+
+    function frameReturnFalse(data) {
+        if (data) {
+            $.messageBox5s("提示", data);
+        } else {
+            $.messageBox5s("提示", "失败");
+        }
+    }
+
+    function loadData() {
+        $("#tt2").datagrid({
+            queryParams: {
+            }
+        });
+    }
+
+    function reloadFrame() {
+        window.parent.reload();
+    }
+
+    $(document).ready(function () {
+
+        ShowTreegrid();
+
+        $("#tt2").datagrid({
+            onClickRow: function (index, row) {
+                var p = $(":checkbox");
+                if (p.length > 0) {
+                    p.each(function (index, element) {
+                        element.checked = false;
+                    });
+                }
+                var row = $('#tt2').datagrid('getSelected');
+                if (row != null) {
+                    $.post("/Role/QueryRoleByRoleId?roleId=" + row.RoleId, function (data) {
+                        if (data.length > 0) {
+                            p.each(function (index, element) {
+                                var elementValue = element.value;
+                                var inArrayValue = $.inArray(elementValue, data);
+                                if (inArrayValue >= 0) {
+                                    element.checked = true;
+                                }
+                            });
+                        }
+                    }, "json");
+                    return;
+                }
+            }
+        });
+    });
+
+</script>
+
+
+

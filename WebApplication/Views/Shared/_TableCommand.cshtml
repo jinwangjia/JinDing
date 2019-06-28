@@ -1,0 +1,26 @@
+﻿@model WebApplication.Models.PartialTableCommandModel;
+@using SqlDal;
+
+@{
+
+    var commandList = new CommandDal().QueryByFunctionId(Model.FunctionId).OrderBy(o => o.Index).ToList();
+    if (Model.CurrentAdmin.SysAdmin)
+    {
+        foreach (var p in commandList)
+        {
+            <a href="#" class="easyui-linkbutton" iconCls="@(p.IconCls)" plain="true" onclick="@(p.OnClick)">@(p.CommandName)</a>
+        }
+    }
+    else
+    {
+        var roleAndCommandList = new RoleAndCommandDal().QueryByRoleId(Model.CurrentAdmin.RoleId);
+        var list = from command in commandList
+                   join roleAndCommand in roleAndCommandList on command.CommandId equals roleAndCommand.CommandId
+                   select command;
+        foreach (var p in list)
+        {
+            <a href="#" class="easyui-linkbutton" iconCls="@(p.IconCls)" plain="true" onclick="@(p.OnClick)">@(p.CommandName)</a>
+        }
+    }
+}
+

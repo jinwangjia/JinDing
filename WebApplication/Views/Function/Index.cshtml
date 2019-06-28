@@ -1,0 +1,307 @@
+﻿@using SqlDal;
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="easyui-layout" fit="true">
+    <div data-options="region:'east',split:true" title="命令" style="width:600px;padding: 3px 3px 3px 3px;">
+            <table id="tt2" class="easyui-datagrid" fit="true" fitColumns="false" toolbar="#tb"
+            singleSelect="true" pagination="false" striped="true" rownumbers="true">
+            <thead>
+                <th field="CommandName" align="left" width="250">名称</th>
+                <th field="OnClick" align="left" width="150">动作</th>
+                <th field="Index" align="left" width="150">顺序</th>
+                <th field="IconCls" align="left" width="150">图标</th>
+                @*<th field="Href" align="left" width="150">链接</th>*@
+            </thead>
+        </table>
+    </div>
+    <div region="center" border="false" title="功能" style=" padding: 3px 3px 3px 3px;">
+        <table id="tt"></table>
+    </div>
+</div>
+
+<div id="modalwindow" class="easyui-window" data-options="modal:true,closed:true,minimizable:false,shadow:false"></div>
+
+<div id="tb">
+	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:addCommand()">添加</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:delCommand()">删除</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:updateCommand()">修改</a>
+</div>
+
+<style type="text/css">
+    .editclsdelete {
+    }
+
+    .editclsupdate {
+    }
+
+    .editclsUp {
+    }
+
+    .editclsDown {
+    }
+
+    .editclsShow {
+    }
+
+    .editclsHide {
+    }
+</style>
+
+<script type="text/javascript">
+
+    function addCommand() {
+
+        var row = $('#tt').treegrid('getSelected');
+        if (row == null) {
+            $.messageBox5s('提示', '请选择要操作的记录');
+            return;
+        } else {
+            $("#modalwindow").html("<iframe width='100%' height='100%' scrolling='auto' frameborder='0'' src='/Command/Add?functionId=" + row.functionId + "'></iframe>");
+            $("#modalwindow").window({
+                title: '添加', width: 700, height: 400, left: ($(window).width() - 700) / 2, top: ($(window).height() - 400) / 2,
+                iconCls: 'icon-add'
+            }).window('open');
+        }
+    }
+
+    function updateCommand() {
+        var row = $('#tt2').datagrid('getSelected');
+        if (row == null) {
+            $.messageBox5s('提示', '请选择要操作的记录');
+            return;
+        } else {
+            var str = "<iframe width='100%' height='100%' scrolling='auto' frameborder='0'' src='/Command/Update?CommandId=" + row.CommandId + "'></iframe>";
+            $("#modalwindow").html(str);
+            $("#modalwindow").window({
+                title: '修改',
+                width: 700,
+                height: 400,
+                left: ($(window).width() - 700) / 2,
+                top: ($(window).height() - 400) / 2,
+                iconCls: 'icon-edit'
+            }).window('open');
+        }
+    }
+
+    function delCommand() {
+        var row = $('#tt2').datagrid('getSelected');
+        if (row != null) {
+            $.messager.confirm('提示', '确定删除', function (r) {
+                if (r) {
+                    $.post("/Command/Delete?CommandId=" + row.CommandId, function (data) {
+                        if (data == 1) {
+                            $.messageBox5s('提示', "删除成功");
+                            var row2 = $('#tt').treegrid('getSelected');
+                            if (row2 != null) {
+                                $("#tt2").datagrid({
+                                    queryParams: {
+                                        functionId: row2.functionId
+                                    }
+                                });
+                            }
+                        }
+                    }, "json");
+
+                }
+            });
+        } else { $.messageBox5s('提示', '请选择要操作的记录'); }
+    }
+
+    function frameReturnAddCommandTrue() {
+        var row = $('#tt').treegrid('getSelected');
+        if (row == null) {
+            $.messageBox5s('提示', '请选择要操作的记录');
+            return;
+        } else {
+            $.messageBox5s("提示", "成功");
+            $("#modalwindow").window("close");
+            $("#tt2").datagrid({
+                queryParams: {
+                    functionId: row.functionId
+                }
+            });
+        }
+    }
+
+
+    function frameReturnUpdateCommandTrue() {
+        var row = $('#tt').treegrid('getSelected');
+        if (row == null) {
+            $.messageBox5s('提示', '请选择要操作的记录');
+            return;
+        } else {
+            $.messageBox5s("提示", "成功");
+            $("#modalwindow").window("close");
+            $("#tt2").datagrid({
+                queryParams: {
+                    functionId: row.functionId
+                }
+            });
+        }
+    }
+
+
+    function ShowTreegrid() {
+        $('#tt').treegrid({
+            rownumbers: true,
+            fit: true,
+            url: '/Function/JQueryTreeGrid?id=0',
+            idField: 'functionId',
+            treeField: 'name',
+            toolbar: [{
+                text: '添加',
+                iconCls: 'icon-add',
+                handler: function () {
+                    add();
+                }
+            }, '-', {
+                text: '删除',
+                iconCls: 'icon-remove',
+                handler: function () {
+                    del();
+                }
+            }, '-', {
+                text: '修改',
+                iconCls: 'icon-edit',
+                handler: function () {
+                    update();
+                }
+            }],
+            columns: [[
+            {field: 'name', title: '功能', width: 160, align: 'left' },
+            { field: 'page', title: '地址', width: 260, align: 'left' },
+            { field: 'display', title: '是否显示', width: 60, align: 'left' },
+            { field: 'postion', title: '位置', width: 40, align: 'left' }
+            ]],
+
+            onBeforeExpand: function (node, param) {
+                $('#tt').treegrid('options').url = "/Function/JQueryTreeGrid?Id=" + node.functionId;
+            },
+            onLoadSuccess: function (node, data) {//加载成功后调用事件
+                var tree = $(this);
+                if (data) {
+                    $(data).each(function (index, d) {
+                        if (this.state == 'closed') {
+                            tree.treegrid('expandAll');
+                        }
+                    });
+                };
+            },
+            onClickRow: function (row) {
+                if (row.page != "") {
+                    $('#tt2').datagrid('options').url = "/Command/JQueryIndex";
+                    $("#tt2").datagrid({
+                        queryParams: {
+                            functionId: row.functionId
+                        }
+                    });
+
+                }
+            }
+        });
+    }
+
+
+    function add() {
+        $("#modalwindow").html("<iframe width='100%' height='100%' scrolling='auto' frameborder='0'' src='/Function/Add'></iframe>");
+        $("#modalwindow").window({
+            title: '添加', width: 700, height: 400, left: ($(window).width() - 700) / 2, top: ($(window).height() - 400) / 2,
+            iconCls: 'icon-add'
+        }).window('open');
+    }
+
+    function update() {
+        var row = $('#tt').treegrid('getSelected');
+        if (row == null) {
+            $.messageBox5s('提示', '请选择要操作的记录');
+            return;
+        } else {
+            var str = "<iframe width='100%' height='100%' scrolling='auto' frameborder='0'' src='/Function/Update?id=" + row.functionId + "'></iframe>";
+            $("#modalwindow").html(str);
+            $("#modalwindow").window({
+                title: '修改',
+                width: 700,
+                height: 400,
+                left: ($(window).width() - 700) / 2,
+                top: ($(window).height() - 400) / 2,
+                iconCls: 'icon-edit'
+            }).window('open');
+        }
+    }
+
+    function del() {
+        var row = $('#tt').treegrid('getSelected');
+        if (row != null) {
+            $.messager.confirm('提示', '确定删除', function (r) {
+                if (r) {
+                    $.post("/Function/Delete?id=" + row.functionId, function (data) {
+                        if (data == 1) {
+                            $.messageBox5s('提示', "删除成功");
+                            loadData();
+                        }
+                    }, "json");
+
+                }
+            });
+        } else { $.messageBox5s('提示', '请选择要操作的记录'); }
+    }
+
+    function reload() {
+        var row = $('#tt').treegrid('getSelected');
+        var level = $("#tt").treegrid("getLevel", row.functionId);
+        if (level >= 2) {
+            row = $("#tt").treegrid("getParent", row.functionId);
+        };
+        $("#tt").treegrid("reload");
+
+    }
+
+    function frameReturnUpdateTrue() {
+        $.messageBox5s("提示", "成功");
+        $("#modalwindow").window("close");
+        loadData();
+        //reload();
+    }
+
+    function frameReturnAddTrue() {
+        $.messageBox5s("提示", "成功");
+        $("#modalwindow").window("close");
+        loadData();
+    }
+
+    function frameReturnFalse(data) {
+        if (data) {
+            $.messageBox5s("提示", data);
+        } else {
+            $.messageBox5s("提示", "失败");
+        }
+    }
+
+    function loadData() {
+
+        reloadFrame();
+
+        $.ajax({
+            url: "/Function/JQueryTreeGrid?Id=0",
+            type: "Post",
+            dataType: "json",
+            success: function (data) {
+                $("#tt").treegrid("loadData", data);
+            }
+        });
+    }
+
+    function reloadFrame() {
+        window.parent.reload();
+    }
+
+    $(document).ready(function () {
+        ShowTreegrid();
+        //loadData();
+    });
+
+</script>
+

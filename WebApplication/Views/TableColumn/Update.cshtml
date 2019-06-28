@@ -1,0 +1,109 @@
+﻿@model WebApplication.Models.TableColumnUpdateModel
+
+@{
+    ViewBag.Title = "Update";
+    IList<SelectListItem> alignList = new List<SelectListItem>();
+    alignList.Insert(0, new SelectListItem { Value = "left", Text = "left" });
+    alignList.Insert(0, new SelectListItem { Value = "center", Text = "center" });
+    alignList.Insert(0, new SelectListItem { Value = "right", Text = "right" });
+}
+
+
+<div class="easyui-layout" data-options="fit:true">
+	<div data-options="region:'center'" style="padding:10px;">
+		@using (Html.BeginForm("Update", "TableColumn", FormMethod.Post, new { id = "Update", autocomplete = "off" }))
+        {      
+            @Html.HiddenFor(m => m.FunctionId)
+            @Html.HiddenFor(m => m.TableColumnId)
+            <table width="100%" border="0" align="center" cellpadding="5" cellspacing="1">
+                <tr>
+                    <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.Field)</td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        @Html.TextBoxFor(m => m.Field)
+                        @Html.ValidationMessageFor(m => m.Field)
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.Name)</td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        @Html.TextBoxFor(m => m.Name)
+                        @Html.ValidationMessageFor(m => m.Name)
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.Visible)</td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        @Html.CheckBoxFor(m => m.Visible)
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.Width)</td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        @Html.TextBoxFor(m => m.Width)
+                        @Html.ValidationMessageFor(m => m.Width)
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.Format)</td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        @Html.TextBoxFor(m => m.Format)
+                        @Html.ValidationMessageFor(m => m.Format)
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.Align)</td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        @Html.DropDownListFor(m => m.Align, alignList)
+                        @Html.ValidationMessageFor(m => m.Align)
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.Index)</td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        @Html.TextBoxFor(m => m.Index)
+                        @Html.ValidationMessageFor(m => m.Index)
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td align="right" bgcolor="#F6F6F6"></td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        <span class="f12red">@ViewBag.Message</span>
+                    </td>
+                </tr>
+            </table>    
+        }
+	</div>
+	<div data-options="region:'south',border:false" style="text-align:right;padding:5px 5px 5px 5px;">
+		<a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)" onclick="javascript:submit1()" style="width:80px">确定</a>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+    function submit1() {
+        if ($("form").valid()) {
+            $.ajax({
+                url: "/TableColumn/Update",
+                type: "Post",
+                data: $("#Update").serialize(),
+                dataType: "json",
+                success: function (data) {
+                    if (data.state == "ok") {
+                        window.parent.frameReturnUpdateTrue();
+                    }
+                    else {
+                        window.parent.frameReturnFalse(data.data);
+                    }
+                }
+            });
+        }
+    }
+
+</script>
+
+
+
+
+

@@ -1,0 +1,218 @@
+﻿@model WebApplication.Models.TableColumnIndexAdminModel
+
+@{
+    ViewBag.Title = "表列";
+}
+<div id="modalwindow" class="easyui-window"data-options="modal:true,closed:true,minimizable:false,shadow:false"></div>
+
+<div class="easyui-layout" data-options="fit:true">
+	<div data-options="region:'center',onClickRow:onClickRow2" style="padding:10px;">
+            <table id="tt" class="easyui-datagrid" fit="true"
+            singleSelect="true" striped="true" rownumbers="true"  toolbar="#tb"
+            url="/TableColumn/JsonIndex?functionId=@(Model.FunctionId)">
+            <thead>
+                <th field="Field" align="left" width="170" editor="textbox">字段</th>
+                <th field="Name" align="left" width="170"  editor="textbox">名称</th>
+                <th field="Align" align="left" width="80">对其方式</th>
+                <th field="Width" align="right" width="80" editor="textbox">宽度</th>
+                <th field="Index" align="right" width="80" editor="textbox">顺序</th>
+                <th field="TableColumnId" align="center" width="100" formatter="formatter1"  editor="textbox">显示</th>
+            </thead>
+        </table>
+	</div>
+</div>
+
+<div id="tb">
+	        <a href="#" class="easyui-linkbutton" iconCls="icon-display" plain="true" onclick="javascript:returnBack()">返回</a>            
+	        <a>|</a>            
+	        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:add()">添加</a>            
+	        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:update()">修改</a>            
+	        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:del()">删除</a>            
+	        <a>|</a>            
+	        <a href="#" class="easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="javascript:reload()">刷新</a>            
+	        <a>|</a>            
+	        <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="javascript:rebuild()">重建</a>            
+</div>
+
+<script type="text/javascript">
+
+    function reload() {
+        window.location.href = "/TableColumn/Index?functionId=@(Model.FunctionId)&returnUrl=@(Model.ReturnUrl)";
+    }
+
+    function returnBack() {
+        window.location.href = "@(Model.ReturnUrl)";
+    }
+
+    function onClickRow2(index) {
+        if (editIndex != index) {
+            if (endEditing()) {
+                $('#tt').datagrid('selectRow', index)
+							.datagrid('beginEdit', index);
+                editIndex = index;
+            } else {
+                $('#tt').datagrid('selectRow', editIndex);
+            }
+        }
+    }
+
+    function formatter1(value, row, index) {
+        if (row.Visible) {
+            return "<input type='checkbox' disabled='disabled' checked />";
+        } else {
+            return "<input type='checkbox'  disabled='disabled'/>";
+        }
+    }
+
+    function submit1() {
+        var roleData = "FunctionId=@(Model.FunctionId)";
+        var checkBoxData = $(":checkbox").serialize();
+
+        var data = roleData + "&" + checkBoxData;
+        $.ajax({
+            url: "/TableColumn/Save",
+            type: "Post",
+            data: data,
+            dataType: "json",
+            success: function (data) {
+                if (data.state == "ok") {
+                    window.parent.frameReturnAddTrue();
+                }
+                else {
+                    window.parent.frameReturnFalse(data.data);
+                }
+            }
+        });
+    }
+
+    function rebuild() {
+        $.messager.confirm('提示', '重建表列即是删除一般管理员的专有表列设置，按系统管理员设置显示，确定重建表列吗？', function (r) {
+            if (r) {
+                var roleData = "FunctionId=@(Model.FunctionId)";
+
+                $.ajax({
+                    url: "/TableColumn/rebuild",
+                    type: "Post",
+                    data: roleData,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.state == "ok") {
+                            window.parent.frameReturnAddTrue();
+                        }
+                        else {
+                            window.parent.frameReturnFalse(data.data);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+
+    function add() {
+
+        $("#modalwindow").html("<iframe width='100%' height='100%' scrolling='auto' frameborder='0'' src='/TableColumn/Add?functionId=@(Model.FunctionId)'></iframe>");
+        $("#modalwindow").window({ title: '添加', width: 700, height: 400, left: ($(window).width() - 700) / 2, top: ($(window).height() - 400) / 2,
+            iconCls: 'icon-add'
+        }).window('open');
+
+    }
+
+    function update() {
+        var row = $('#tt').datagrid('getSelected');
+        if (row == null) {
+            $.messageBox5s('提示', '请选择要操作的记录');
+            return;
+        } else {
+            var str = "<iframe width='100%' height='100%' scrolling='auto' frameborder='0'' src='/TableColumn/Update?functionId=@(Model.FunctionId)&tableColumnId=" + row.TableColumnId + "'></iframe>";
+            $("#modalwindow").html(str);
+            $("#modalwindow").window({
+                title: '修改',
+                width: 700,
+                height: 400,
+                left: ($(window).width() - 700) / 2,
+                top: ($(window).height() - 400) / 2,
+                iconCls: 'icon-edit'
+            }).window('open');
+        }
+    }
+
+    function del() {
+
+        var row = $('#tt').datagrid('getSelected');
+        if (row != null) {
+            $.messager.confirm('提示', '确定删除', function (r) {
+                if (r) {
+                    $.post("/TableColumn/Delete?functionId=@(Model.FunctionId)&tableColumnId=" + row.TableColumnId, function (data) {
+                        if (data.state == "ok") {
+                            $.messageBox5s('提示', "删除成功");
+                            loadData();
+                        } else {
+                            $.messageBox5s('提示', data.data);
+                        }
+                    }, "json");
+
+                }
+            });
+        } else {
+            $.messageBox5s('提示', '请选择要操作的记录'); 
+        }
+
+    }
+
+    function loadData() {
+        $("#tt").datagrid("load");
+    }
+
+
+    function returnDeleteTrue() {
+        $.messageBox5s("提示", "成功");
+        $("#modalwindow").window("close");
+        loadData();
+    }
+    function frameReturnUpdateTrue() {
+        $.messageBox5s("提示", "成功");
+        $("#modalwindow").window("close");
+        loadData();
+    }
+
+    function frameReturnAddTrue() {
+        $.messageBox5s("提示", "成功");
+        $("#modalwindow").window("close");
+        loadData();
+    }
+
+    function frameReturnFalse(data) {
+        if (data) {
+            $.messageBox5s("提示", data);
+        } else {
+            $.messageBox5s("提示", "失败");
+        }
+    }
+
+//    $(document).ready(function () {
+//        $("#tt").datagrid({
+//            onLoadSuccess: function (data) {
+//                $.post("/TableColumnAndAdmin/JsonQueryTableColumnIdByFunctionId?FunctionId=@(Model.FunctionId)", function (data) {
+//                    var p = $(":checkbox");
+//                    if (data.length > 0) {
+//                        p.each(function (index, element) {
+//                            var elementValue = element.value;
+//                            var inArrayValue = $.inArray(elementValue, data);
+//                            if (inArrayValue >= 0) {
+//                                element.checked = true;
+//                            }
+//                        });
+//                    } else {
+//                        p.each(function (index, element) {
+//                            element.checked = true;
+//                        });
+//                    }
+//                }, "json");
+//            }
+//        })
+//    });
+
+</script>
+
+

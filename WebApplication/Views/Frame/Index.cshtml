@@ -1,0 +1,288 @@
+﻿@model WebApplication.Models.FrameIndexModel
+@{
+    ViewData["Title"] = "F20";
+    Layout = null;
+
+    //主题
+    string themes = Context.Items["themes"] == null ? "bluelight" : Context.Items["themes"].ToString();
+}
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>F20管理平台</title>
+    <meta name="renderer" content="webkit" />
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/js/jquery-1.4.4.js"></script>
+    <script src="~/easyui/jquery.easyui.min.js"></script>
+    <link href="~/themes/base/easyui.css" rel="stylesheet" />
+    <link href="~/themes/skin-@(themes).css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+</head>
+<body class="easyui-layout" id="easyLayout">
+
+    <div id="modalwindow" class="easyui-window" data-options="closed:true,minimizable:false,shadow:false,collapsible:true">
+    </div>
+
+    <div id="north" data-options="region:'north',border:false,split:false" style="height: 50px; padding:0;margin:0">
+        <table class="banner" style="border-spacing:0px;">
+            <tr>
+                <td class="webname">
+                    <span class="fa fa-yelp" style="font-size:26px; padding-right:8px;"></span>F20管理平台
+                </td>
+                <td>&nbsp;</td>
+                @{
+                    if (Model.CurrentAdmin.Accounts.ToLower() == "admin")
+                    {
+                        <td style="width: 80px;">
+                            <a title="切换主题" id="SetThemes" class="l-btn-text fa fa-cogs fa-lg bannerbtn" href="#"> </a>
+                        </td>
+                    }
+                }
+                <td style="width:180px; overflow:hidden; ">
+                    <a id="showUserInfo" style="display:inline-block;" class="fa bannerbtn" href="javascript:void()">
+                        <img src="@Url.Content("~/images/photo.jpg")" class="user-image" alt="User Image">
+                        <span class="user-name">@(Model.CurrentAdmin.Accounts)</span>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div id="west" data-options="region:'west',split:true,title:'菜单',collapsible:false" style="width: 220px; height: 100%;  overflow: auto; border-bottom:0px;">
+
+        <div id="RightAccordion" class="easyui-accordion" data-options="fit:true,border:false">
+            <div class="easyui-accordion" style="width:500px;height:300px;">
+                <div title="菜单" data-options="iconCls:'fa fa-search'" style="padding:10px;">
+                    <ul class="easyui-tree">
+                        @{
+                            var list1 = Model.FunctionList.Where(o => o.ParentId == "0").OrderBy(o => o.Postion).ToList();
+                            foreach (var p1 in list1)
+                            {
+                                <li>
+                                    <span>@(p1.Name)</span>
+                                    <ul>
+                                        @{
+                                            var list2 = Model.FunctionList.Where(o => o.ParentId == p1.FunctionId).OrderBy(o => o.Postion).ToList();
+                                            foreach (var p2 in list2)
+                                            {
+                                                <li><a style="color:#000" href="javascript:addTab('@(p2.Name)','@(p2.Page)','fa fa-table')">@(p2.Name)</a></li>
+                                            }
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="RightTree" class="easyui-tree"></div>
+
+    </div>
+
+    <div id="center" data-options="region:'center',border:false">
+        <div id="mainTab" class="easyui-tabs" data-options="fit:true">
+            <div title="我的桌面" data-options="closable:true,iconCls:'fa fa-tachometer'">
+                <iframe scrolling="auto" frameborder="0" src="/Home/Desktop" style="width: 100%; height: 100%;"></iframe>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="tab_menu" class="easyui-menu" style="width: 150px;">
+        <div id="tab_menu-tabrefresh" data-options="iconCls:'icon-reload'">
+            刷新
+        </div>
+        <div id="tab_menu-openFrame">
+            在新的窗体打开
+        </div>
+        <div id="tab_menu-tabcloseall">
+            关闭所有
+        </div>
+        <div id="tab_menu-tabcloseother">
+            关闭其他标签页
+        </div>
+        <div class="menu-sep">
+        </div>
+        <div id="tab_menu-tabcloseright">
+            关闭右边
+        </div>
+        <div id="tab_menu-tabcloseleft">
+            关闭左边
+        </div>
+        <div id="tab_menu-tabclose" data-options="iconCls:'fa fa-trash'">
+            关闭
+        </div>
+        <div id="menu" class="easyui-menu" style="width: 150px;">
+        </div>
+    </div>
+
+    <div id="ModalStyle" class="easyui-dialog" style="width:600px;height:270px" data-options="iconCls:'fa fa-save',modal:true,closed:true">
+        <table style="width:100%; padding:20px; line-height:30px;text-align:center;">
+            <tr>
+                <td><img src="../../images/skin/skin-coolblack.png" style="width:60px;height:30px;" /><br /><input type="radio" name="themes" value="coolblack" checked="checked" /></td>
+                <td><img src="../../images/skin/skin-red.png" style="width:60px;height:30px;" /><br /><input type="radio" name="themes" value="red" /></td>
+                <td><img src="../../images/skin/skin-green.png" style="width:60px;height:30px;" /><br /><input type="radio" name="themes" value="green" /></td>
+                <td><img src="../../images/skin/skin-purple.png" style="width:60px;height:30px;" /><br /><input type="radio" name="themes" value="purple" /></td>
+                <td><img src="../../images/skin/skin-blue.png" style="width:60px;height:30px;" /><br /><input type="radio" name="themes" value="blue" /></td>
+                <td><img src="../../images/skin/skin-yellow.png" style="width:60px;height:30px;" /><br /><input type="radio" name="themes" value="yellow" /></td>
+            </tr>
+            <tr>
+                <td><img src="../../images/skin/skin-coolblacklight.png" style="width:60px;height:30px;" /><br /><input type="radio" name="themes" value="coolblacklight" /></td>
+                <td><img src="../../images/skin/skin-redlight.png" style="width:60px;height:30px;" /><br /><input type="radio" name="themes" value="redlight" /></td>
+                <td><img src="../../images/skin/skin-greenlight.png" style="width:60px;height:30px;" /><br /><input type="radio" name="themes" value="greenlight" /></td>
+                <td><img src="../../images/skin/skin-purplelight.png" style="width:60px;height:30px;" /><br /><input type="radio" name="themes" value="purplelight" /></td>
+                <td> <img src="../../images/skin/skin-bluelight.png" style="width:60px;height:30px;" /><br /><input type="radio" name="themes" value="bluelight" /></td>
+                <td><img src="../../images/skin/skin-yellowlight.png" style="width:60px;height:30px;" /><br /><input type="radio" name="themes" value="yellowlight" /></td>
+            </tr>
+        </table>
+        <div class="endbtndiv">
+            <a id="btnSave" href="javascript:SetThemes()" class="easyui-linkbutton btns">保存</a>
+            <a id="btnReturn" href="javascript:$('#ModalStyle').dialog('close')" class="easyui-linkbutton btnc">取消</a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+
+
+
+
+<script type="text/javascript">
+
+    function SetThemes() {
+        $.messager.confirm("提示", "即将修改主题并重新加载页面！", function (r) {
+            if (r) {
+                var theme = $('input[name="themes"]:checked').val();
+                $.post("/Home/SetThemes", {
+                    theme: theme
+                }, function (data) {
+                    window.location.reload();
+                }, "json");
+            }
+        });
+    }
+
+    $(function () {
+        function timeOut() {
+            window.location = "/Frame/LoginOut";
+        }
+        setTimeout(timeOut, 1000 * 60 * 60); // 注意函数名没有引号和括弧！
+        // 使用setInterval("show()",3000);会报“缺少对象”
+    });
+
+    function loginOut(item) {
+        //alert(item.text);
+    }
+
+    function reload() {
+        $('#leftTree').tree({ url: '/Function/JQueryLeftTree?Id=0' });
+    }
+
+    function showCategory() {
+        $('#leftTree').tree({
+            checkbox: false,
+            lines: true,
+            url: '/Function/JQueryLeftTree?Id=0',
+            onBeforeExpand: function (node, param) {
+                $('#leftTree').tree('options').url = "/Function/JQueryLeftTree?Id=" + node.id;
+            },
+            onLoadSuccess: function (node, data) {//加载成功后调用事件
+                var tree = $(this);
+                if (data) {
+                    $(data).each(function (index, d) {
+                        if (this.state == 'closed') {
+                            tree.tree('expandAll');
+                        }
+                    });
+                }
+            },
+            onClick: function (node) {
+                var state = node.state;
+                currentId = node.id;
+                if (node.attributes.page != '') {
+                    addTab(node.text, node.attributes.page);
+                }
+            }
+        });
+    }
+
+    function refreshTab(cfg) {
+        var refresh_tab = cfg.tabTitle ? $('#tabs').tabs('getTab', cfg.tabTitle) : $('#tabs').tabs('getSelected');
+        if (refresh_tab && refresh_tab.find('iframe').length > 0) {
+            var _refresh_ifram = refresh_tab.find('iframe')[0];
+            var refresh_url = cfg.url ? cfg.url : _refresh_ifram.src;
+            _refresh_ifram.contentWindow.location.href = refresh_url;
+        }
+    }
+
+    function addTab(subtitle, url, icon) {
+        if (!$("#mainTab").tabs('exists', subtitle)) {
+            var closableFlag = true;
+            if (url.indexOf("/Home/Desktop") > -1) {
+                closableFlag = false;
+            }
+
+
+            $("#mainTab").tabs('add', {
+                title: subtitle,
+                content: '<iframe frameborder="0" src="' + url + '" scrolling="auto" style="width:100%; height:100%;overflow:hidden"></iframe>',
+                closable: closableFlag,
+                icon: icon
+            });
+        } else {
+            $("#mainTab").tabs('select', subtitle);
+            $("#tab_menu-tabrefresh").trigger("click");
+        }
+    }
+
+    showCategory();
+
+    $("#SetThemes").click(function () {
+        $("#ModalStyle").dialog({
+            title: '个性化设置'
+        }).dialog('open');
+    });
+
+    $('#showUserInfo').tooltip({
+        content: $('<div></div>'),
+        showEvent: 'click',
+        deltaX: -70,
+        onUpdate: function (content) {
+            content.panel({
+                width: 250,
+                border: false,
+                href: '/Home/TopInfo'
+            });
+        },
+        onShow: function () {
+            var t = $(this);
+            t.tooltip('tip').unbind().bind('mouseenter', function () {
+                t.tooltip('show');
+            }).bind('mouseleave', function () {
+                t.tooltip('hide');
+            });
+        }
+    });
+
+    function Profile() {
+        window.location.href = '/Frame/ChangePassword';
+    }
+
+    function SignOut() {
+        $.messager.confirm("提示", "您确定要退出系统吗？", function (r) {
+            if (r) {
+                window.location.href = '/Frame/LoginOut';
+            }
+        });
+    }
+
+</script>

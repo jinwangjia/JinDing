@@ -1,0 +1,117 @@
+﻿@model WebApplication.Models.TableColumnIndexModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="easyui-layout" data-options="fit:true">
+	<div data-options="region:'center'" style="padding:10px;">
+            <table id="tt" class="easyui-datagrid" fit="true"  toolbar="#tb"
+            singleSelect="true" striped="true" rownumbers="true"
+            url="/TableColumn/JsonIndex?functionId=@(Model.FunctionId)">
+            <thead>
+                <th field="Field" align="left" width="170" editor="textbox">字段</th>
+                <th field="Name" align="left" width="170"  editor="textbox">名称</th>
+                <th field="Align" align="left" width="80">对其方式</th>
+                <th field="Width" align="right" width="80" editor="textbox">宽度</th>
+                <th field="Index" align="right" width="80" editor="textbox">顺序</th>
+                <th field="TableColumnId" align="center" width="100" formatter="formatter1">显示</th>
+            </thead>
+        </table>
+	</div>
+</div>
+
+<div id="tb">
+	        <a href="#" class="easyui-linkbutton" iconCls="icon-display" plain="true" onclick="javascript:returnBack()">返回</a>            
+	        <a>|</a>     
+	        <a href="#" class="easyui-linkbutton" iconCls="icon-ok" plain="true" onclick="javascript:submit1()">保存</a>               
+	        <a>|</a>            
+	        <a href="#" class="easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="javascript:reload()">刷新</a>          
+</div>
+
+
+<script type="text/javascript">
+
+    function reload() {
+        window.location.href = "/TableColumn/Index?functionId=@(Model.FunctionId)&returnUrl=@(Model.ReturnUrl)";
+    }
+
+    function returnBack() {
+        window.location.href = "@(Model.ReturnUrl)";
+    }
+
+    function formatter1(value, row, index) {
+        return "<input value=" + value + " id='TableColumnId' name='TableColumnId' type='checkbox' />";
+    }
+
+    function submit1() {
+
+        $("#tt").datagrid('loading');
+
+        var roleData = "FunctionId=@(Model.FunctionId)";
+        var checkBoxData = $(":checkbox").serialize();
+
+        var data = roleData + "&" + checkBoxData;
+        $.ajax({
+            url: "/TableColumn/Save",
+            type: "Post",
+            data: data,
+            dataType: "json",
+            success: function (data) {
+                $("#tt").datagrid('loaded');
+                if (data.state == "ok") {
+                    frameReturnAddTrue();
+                }
+                else {
+                    frameReturnFalse(data.data);
+                }
+            }
+        });
+    }
+
+    function loadData() {
+        $("#tt").datagrid("load");
+    }
+
+    function frameReturnAddTrue() {
+        $.messageBox5s("提示", "成功");
+        $("#modalwindow").window("close");
+        loadData();
+    }
+
+    function frameReturnFalse(data) {
+        if (data) {
+            $.messageBox5s("提示", data);
+        } else {
+            $.messageBox5s("提示", "失败");
+        }
+    }
+
+    $(document).ready(function () {
+        $("#tt").datagrid({
+            onLoadSuccess: function (data) {
+                $.post("/TableColumnAndAdmin/JsonQueryTableColumnIdByFunctionId?FunctionId=@(Model.FunctionId)", function (data) {
+                    var p = $(":checkbox");
+                    if (data.length > 0) {
+                        p.each(function (index, element) {
+                            var elementValue = element.value;
+                            var inArrayValue = $.inArray(elementValue, data);
+                            if (inArrayValue >= 0) {
+                                element.checked = true;
+                            }
+                        });
+                    } else {
+                        p.each(function (index, element) {
+                            element.checked = true;
+                        });
+                    }
+                }, "json");
+            }
+        })
+    });
+
+</script>
+
+
+
