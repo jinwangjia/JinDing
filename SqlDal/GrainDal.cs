@@ -38,6 +38,12 @@ namespace SqlDal
             }
         }
 
-
+        public IList<GrainDefinition> QueryByGrainTypeId(int grainTypeId)
+        {
+            using (var dal = new BaseDal())
+            {
+                return dal.Grain.Where(o => o.GrainTypeId == grainTypeId).ToList();
+            }
+        }
     }
 }

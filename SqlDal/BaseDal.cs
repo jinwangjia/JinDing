@@ -60,7 +60,14 @@ namespace SqlDal
         /// 物料
         /// </summary>
         public DbSet<GrainDefinition> Grain { get; set; }
+        /// <summary>
+        /// 物料类别
+        /// </summary>
         public DbSet<GrainTypeDefinition> GrainType { get; set; }
+        /// <summary>
+        /// 配方之物料表
+        /// </summary>
+        public DbSet<FormulaOfGrainDefinition> FormulaOfGrain { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -79,6 +86,7 @@ namespace SqlDal
             modelBuilder.Entity<RoleAndCommandDefinition>().HasKey(o => new { o.RoleId, o.CommandId });
             modelBuilder.Entity<RoleAndFunctionDefinition>().HasKey(o => new { o.RoleId, o.FunctionId });
             modelBuilder.Entity<TableColumnAndAdminDefinition>().HasKey(o => new { o.AdministratorId, o.FunctionId });
+            modelBuilder.Entity<FormulaOfGrainDefinition>().HasKey(o => new { o.FormulaId, o.GrainId });
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -1,0 +1,63 @@
+﻿@model WebApplication.Models.FormulaOfGrainUpdateModel
+
+@{
+
+}
+<div class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'center'" style="padding:10px;">
+        @using (Html.BeginForm("Update", "FormulaOfGrain", FormMethod.Post, new { id = "Update", autocomplete = "off" }))
+        {
+            <input type="hidden" asp-for="FormulaId" />
+            <input type="hidden" asp-for="GrainTypeId" />
+            <input type="hidden" asp-for="GrainId" />
+
+            <table width="100%" border="0" align="center" cellpadding="5" cellspacing="1">
+                <tr>
+                    <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainName"></label>:</td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        @Html.DisplayFor(o=>o.GrainName)
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#F6F6F6"><label asp-for="Amount"></label>:</td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        <input asp-for="Amount" />
+                        <span asp-validation-for="Amount"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#F6F6F6"></td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        <span class="f12red">@ViewBag.Message</span>
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+    <div data-options="region:'south',border:false" style="text-align:right;padding:5px 5px 5px 5px;">
+        <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)" onclick="javascript:submit1()" style="width:80px">确定</a>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function submit1() {
+        if ($("form").valid()) {
+            $.ajax({
+                url: "/FormulaOfGrain/Update",
+                type: "Post",
+                data: $("#Update").serialize(),
+                dataType: "json",
+                success: function (data) {
+                    if (data.state == "ok") {
+                        window.parent.frameReturnUpdateTrue1($("#GrainTypeId").val());
+                    }
+                    else {
+                        window.parent.frameReturnFalse1(data.data);
+                    }
+                }
+            });
+        }
+    }
+
+</script>

@@ -30,28 +30,28 @@
                 <div class="easyui-tabs" fit="true"plain="true">
                     <div title="大料" style="padding:3px;">
                         <table id="tt1" class="easyui-datagrid" fit="true" fitColumns="false" toolbar="#tb1"
-                               singleSelect="true" pagination="true" pagelist="[50]" pagesize="50" striped="true" rownumbers="true"
-                               url="/Formula/JsonIndex">
+                               singleSelect="true" pagination="true" pagelist="[50]" pagesize="50" striped="true" rownumbers="true">
                             <thead>
-                                @await Html.PartialAsync("_TableColumn", new PartialTableColumnModel() { FunctionId = function.FunctionId, CurrentAdmin = Model.CurrentAdmin })
+                                <th field="GrainName" align="left" width="200">物料名称</th>
+                                <th field="Amount" align="right" width="200">重量</th>
                             </thead>
                         </table>
                     </div>
                     <div title="小料" style="padding:3px;">
                         <table id="tt2" class="easyui-datagrid" fit="true" fitColumns="false" toolbar="#tb2"
-                               singleSelect="true" pagination="true" pagelist="[50]" pagesize="50" striped="true" rownumbers="true"
-                               url="/Formula/JsonIndex">
+                               singleSelect="true" pagination="true" pagelist="[50]" pagesize="50" striped="true" rownumbers="true">
                             <thead>
-                                @await Html.PartialAsync("_TableColumn", new PartialTableColumnModel() { FunctionId = function.FunctionId, CurrentAdmin = Model.CurrentAdmin })
+                            <th field="GrainName" align="left" width="200">物料名称</th>
+                            <th field="Amount" align="right" width="200">重量</th>
                             </thead>
                         </table>
                     </div>
                     <div title="油脂" style="padding:3px;">
                         <table id="tt3" class="easyui-datagrid" fit="true" fitColumns="false" toolbar="#tb3"
-                               singleSelect="true" pagination="true" pagelist="[50]" pagesize="50" striped="true" rownumbers="true"
-                               url="/Formula/JsonIndex">
+                               singleSelect="true" pagination="true" pagelist="[50]" pagesize="50" striped="true" rownumbers="true">
                             <thead>
-                                @await Html.PartialAsync("_TableColumn", new PartialTableColumnModel() { FunctionId = function.FunctionId, CurrentAdmin = Model.CurrentAdmin })
+                            <th field="GrainName" align="left" width="200">物料名称</th>
+                            <th field="Amount" align="right" width="200">重量</th>
                             </thead>
                         </table>
                     </div>
@@ -67,15 +67,21 @@
 </div>
 
 <div id="tb1">
-    @await Html.PartialAsync("_TableCommand", new PartialTableCommandModel() { FunctionId = function.FunctionId, CurrentAdmin = Model.CurrentAdmin })
+    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:add1(1)">添加</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:del1(1)">删除</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:update1(1)">修改</a>
 </div>
 
 <div id="tb2">
-    @await Html.PartialAsync("_TableCommand", new PartialTableCommandModel() { FunctionId = function.FunctionId, CurrentAdmin = Model.CurrentAdmin })
+    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:add1(2)">添加</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:del1(2)">删除</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:update1(2)">修改</a>
 </div>
 
 <div id="tb3">
-    @await Html.PartialAsync("_TableCommand", new PartialTableCommandModel() { FunctionId = function.FunctionId, CurrentAdmin = Model.CurrentAdmin })
+    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:add1(3)">添加</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:del1(3)">删除</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="javascript:update1(3)">修改</a>
 </div>
 
 <script type="text/javascript">
@@ -123,7 +129,7 @@
 
     function add() {
 
-        $("#modalwindow").html("<iframe width='100%' height='100%' scrolling='auto' frameborder='0'' src='/Formula/Add'></iframe>");
+        $("#modalwindow").html("<iframe width='100%' height='100%' scrolling='auto' frameborder='0' src='/Formula/Add'></iframe>");
         $("#modalwindow").window({
             title: '添加', width: 700, height: 400, left: ($(window).width() - 700) / 2, top: ($(window).height() - 400) / 2,
             iconCls: 'icon-add'
@@ -150,7 +156,6 @@
     }
 
     function del() {
-
         var row = $('#tt').datagrid('getSelected');
         if (row != null) {
             $.messager.confirm('提示', '确定删除', function (r) {
@@ -165,7 +170,6 @@
                 }
             });
         } else { $.messageBox5s('提示', '请选择要操作的记录'); }
-
     }
 
     function loadData() {
@@ -199,5 +203,259 @@
         }
     }
 
+    $(document).ready(function () {
+        $("#tt").datagrid({
+            onClickRow: function (index, row) {
+                var row = $('#tt').datagrid('getSelected');
+                if (row == null) {
+                    $.messageBox5s('提示', '请选择要操作的记录');
+                    return;
+                }
+
+                //$.post("/FormulaOfGrain/JsonIndex?GrainTypeId=1&FormulaId=" + row.FormulaId, function (data1) {
+                //    $('#tt1').datagrid({
+                //        data: data1
+                //    });
+                //}, "json");
+
+                //$.post("/FormulaOfGrain/JsonIndex?GrainTypeId=2&FormulaId=" + row.FormulaId, function (data1) {
+                //    $('#tt2').datagrid({
+                //        data: data1
+                //    });
+                //}, "json");
+
+                //$.post("/FormulaOfGrain/JsonIndex?GrainTypeId=3&FormulaId=" + row.FormulaId, function (data1) {
+                //    $('#tt3').datagrid({
+                //        data: data1
+                //    });
+                //}, "json");
+
+                $("#tt1").datagrid({
+                    url: "/FormulaOfGrain/JsonIndex",
+                    queryParams: {
+                        GrainTypeId: 1,
+                        FormulaId: row.FormulaId
+                    }
+                });
+                $("#tt2").datagrid({
+                    url: "/FormulaOfGrain/JsonIndex",
+                    queryParams: {
+                        GrainTypeId: 2,
+                        FormulaId: row.FormulaId
+                    }
+                });
+                $("#tt3").datagrid({
+                    url: "/FormulaOfGrain/JsonIndex",
+                    queryParams: {
+                        GrainTypeId: 3,
+                        FormulaId: row.FormulaId
+                    }
+                });
+
+                return;
+            }
+        });
+    });
+
+</script>
+
+<script type="text/javascript">
+
+    function add1(grainTypeId) {
+        var row = $('#tt').datagrid('getSelected');
+        if (row == null) {
+            $.messageBox5s('提示', '请选择要操作的配方');
+            return;
+        } 
+
+        $("#modalwindow").html("<iframe width='100%' height='100%' scrolling='auto' frameborder='0' src='/FormulaOfGrain/Add?FormulaId=" + row.FormulaId + "&GrainTypeId=" + grainTypeId+"'></iframe>");
+        $("#modalwindow").window({
+            title: '添加', width: 700, height: 400, left: ($(window).width() - 700) / 2, top: ($(window).height() - 400) / 2,
+            iconCls: 'icon-add'
+        }).window('open');
+    }
+
+    function update1(grainTypeId) {
+        if (grainTypeId == 1) {
+            var row = $('#tt1').datagrid('getSelected');
+            if (row == null) {
+                $.messageBox5s('提示', '请选择要操作的记录');
+                return;
+            }
+
+            var str = "<iframe width='100%' height='100%' scrolling='auto' frameborder='0' src='/FormulaOfGrain/Update?FormulaId=" + row.FormulaId + "&GrainId=" + row.GrainId + "'></iframe>";
+            $("#modalwindow").html(str);
+            $("#modalwindow").window({
+                title: '修改',
+                width: 700,
+                height: 400,
+                left: ($(window).width() - 700) / 2,
+                top: ($(window).height() - 400) / 2,
+                iconCls: 'icon-edit'
+            }).window('open');
+        }
+        if (grainTypeId == 2) {
+            var row = $('#tt2').datagrid('getSelected');
+            if (row == null) {
+                $.messageBox5s('提示', '请选择要操作的记录');
+                return;
+            }
+
+            var str = "<iframe width='100%' height='100%' scrolling='auto' frameborder='0' src='/FormulaOfGrain/Update?FormulaId=" + row.FormulaId + "&GrainId=" + row.GrainId + "'></iframe>";
+            $("#modalwindow").html(str);
+            $("#modalwindow").window({
+                title: '修改',
+                width: 700,
+                height: 400,
+                left: ($(window).width() - 700) / 2,
+                top: ($(window).height() - 400) / 2,
+                iconCls: 'icon-edit'
+            }).window('open');
+        }
+        if (grainTypeId == 3) {
+            var row = $('#tt3').datagrid('getSelected');
+            if (row == null) {
+                $.messageBox5s('提示', '请选择要操作的记录');
+                return;
+            }
+
+            var str = "<iframe width='100%' height='100%' scrolling='auto' frameborder='0' src='/FormulaOfGrain/Update?FormulaId=" + row.FormulaId + "&GrainId=" + row.GrainId + "'></iframe>";
+            $("#modalwindow").html(str);
+            $("#modalwindow").window({
+                title: '修改',
+                width: 700,
+                height: 400,
+                left: ($(window).width() - 700) / 2,
+                top: ($(window).height() - 400) / 2,
+                iconCls: 'icon-edit'
+            }).window('open');
+        }
+    }
+
+    function del1(grainTypeId) {
+
+        if (grainTypeId == 1) {
+            var row = $('#tt1').datagrid('getSelected');
+            if (row == null) {
+                $.messageBox5s('提示', '请选择要操作的记录');
+                return;
+            }
+            $.messager.confirm('提示', '确定删除', function (r) {
+                if (r) {
+                    $.post("/FormulaOfGrain/Delete?FormulaId=" + row.FormulaId + "&GrainId=" + row.GrainId, function (data) {
+                        if (data.state == "ok") {
+                            $.messageBox5s('提示', "删除成功");
+                            loadData1(grainTypeId);
+                        }
+                    }, "json");
+                }
+            });
+        }
+
+        if (grainTypeId == 2) {
+            var row = $('#tt2').datagrid('getSelected');
+            if (row == null) {
+                $.messageBox5s('提示', '请选择要操作的记录');
+                return;
+            }
+            $.messager.confirm('提示', '确定删除', function (r) {
+                if (r) {
+                    $.post("/FormulaOfGrain/Delete?FormulaId=" + row.FormulaId + "&GrainId=" + row.GrainId, function (data) {
+                        if (data.state == "ok") {
+                            $.messageBox5s('提示', "删除成功");
+                            loadData1(grainTypeId);
+                        }
+                    }, "json");
+
+                }
+            });
+        }
+
+        if (grainTypeId == 3) {
+            var row = $('#tt3').datagrid('getSelected');
+            if (row == null) {
+                $.messageBox5s('提示', '请选择要操作的记录');
+                return;
+            }
+            $.messager.confirm('提示', '确定删除', function (r) {
+                if (r) {
+                    $.post("/FormulaOfGrain/Delete?FormulaId=" + row.FormulaId + "&GrainId=" + row.GrainId, function (data) {
+                        if (data.state == "ok") {
+                            $.messageBox5s('提示', "删除成功");
+                            loadData1(grainTypeId);
+                        }
+                    }, "json");
+
+                }
+            });
+        }
+
+    }
+
+    function loadData1(grainTypeId) {
+
+        var row = $('#tt').datagrid('getSelected');
+        if (row == null) {
+            $.messageBox5s('提示', '请选择要操作的配方');
+            return;
+        } 
+
+        if (grainTypeId == 1) {
+            $("#tt1").datagrid({
+                url: "/FormulaOfGrain/JsonIndex",
+                queryParams: {
+                    GrainTypeId: 1,
+                    FormulaId: row.FormulaId
+                }
+            });
+            return;
+        }
+        if (grainTypeId == 2) {
+            $("#tt2").datagrid({
+                url: "/FormulaOfGrain/JsonIndex",
+                queryParams: {
+                    GrainTypeId: 2,
+                    FormulaId: row.FormulaId
+                }
+            });
+            return;
+        }
+        if (grainTypeId == 3) {
+            $("#tt3").datagrid({
+                url: "/FormulaOfGrain/JsonIndex",
+                queryParams: {
+                    GrainTypeId: 3,
+                    FormulaId: row.FormulaId
+                }
+            });
+            return;
+        }
+    }
+
+    function frameReturnAddTrue1(grainTypeId) {
+        $.messageBox5s("提示", "成功");
+        $("#modalwindow").window("close");
+        loadData1(grainTypeId);
+    }
+
+    function returnDeleteTrue1(grainTypeId) {
+        $.messageBox5s("提示", "成功");
+        $("#modalwindow").window("close");
+        loadData1(grainTypeId);
+    }
+
+    function frameReturnUpdateTrue1(grainTypeId) {
+        $.messageBox5s("提示", "成功");
+        $("#modalwindow").window("close");
+        loadData1(grainTypeId);
+    }
+
+    function frameReturnFalse1(data) {
+        if (data) {
+            $.messageBox5s("提示", data);
+        } else {
+            $.messageBox5s("提示", "失败");
+        }
+    }
 </script>
 

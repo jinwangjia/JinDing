@@ -12,7 +12,7 @@ namespace Model
         /// <summary>
         /// 配方标示
         /// </summary>
-        [Key,DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[Key,DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string FormulaId { get; set; }
         /// <summary>
         /// 物料标示
