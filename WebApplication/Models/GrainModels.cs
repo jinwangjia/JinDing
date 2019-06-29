@@ -52,6 +52,15 @@ namespace WebApplication.Models
         [DisplayName("物料助记码")]
         [Required(ErrorMessage = "{0}不能为空")]
         public string GrainPinYin { get; set; }
+
+        /// <summary>
+        /// 物料类别标识
+        /// </summary>
+        [DisplayName("物料类别标识")]
+        [Required(ErrorMessage = "{0}不能为空")]
+        public int GrainTypeId { get; set; }
+
+        public IList<GrainTypeDefinition> GrainTypes { get; set; }
     }
 
     public class GrainUpdateModel
@@ -81,6 +90,15 @@ namespace WebApplication.Models
         [DisplayName("物料助记码")]
         [Required(ErrorMessage = "{0}不能为空")]
         public string GrainPinYin { get; set; }
+        /// <summary>
+        /// 物料类别标识
+        /// </summary>
+        [DisplayName("物料类别标识")]
+        [Required(ErrorMessage = "{0}不能为空")]
+        public int GrainTypeId { get; set; }
+
+        public IList<GrainTypeDefinition> GrainTypes { get; set; }
+
     }
 
     public class GrainProfile : Profile, IProfile

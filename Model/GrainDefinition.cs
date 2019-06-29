@@ -26,5 +26,9 @@ namespace Model
         /// 物料助记码
         /// </summary>
         public string GrainPinYin { get; set; }
+        /// <summary>
+        /// 物料类别标识
+        /// </summary>
+        public int GrainTypeId { get; set; }
     }
 }

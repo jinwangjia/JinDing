@@ -38,6 +38,15 @@ namespace WebApplication.Controllers
             //if (model.EndDateTime == null)
             //    model.EndDateTime = DateTime.Now.ToString("yyyy-MM-dd");
             var dal = new GrainDal();
+            var grainTypeDal = new GrainTypeDal();
+            var grainTypeList = grainTypeDal.Query();
+            var grainTypeFuc = new Func<int, string>((id) =>
+            {
+                var p = grainTypeList.SingleOrDefault(o => o.GrainTypeId == id);
+                if (p == null)
+                    return string.Empty;
+                return p.GrainTypeName;
+            });
             var param = new GrainDal.QueryByParam1In()
             {
                 //BeginDateTime = DateTime.Parse(model.BeginDateTime),
@@ -49,10 +58,12 @@ namespace WebApplication.Controllers
             var list2 = from o in list
                         select new
                         {
-                            GrainId=o.GrainId,
+                            GrainId = o.GrainId,
                             GrainName = o.GrainName,
                             GrainCode = o.GrainCode,
                             GrainPinYin = o.GrainPinYin,
+                            GrainTypeId = o.GrainTypeId,
+                            GrainTypeName = grainTypeFuc(o.GrainTypeId),
                         };
 
             var grid = new
@@ -66,8 +77,10 @@ namespace WebApplication.Controllers
 
         public IActionResult Add()
         {
+            var grainTypeDal = new GrainTypeDal();
             var model = new GrainAddModel()
             {
+                GrainTypes = grainTypeDal.Query(),
             };
             return View(model);
         }
@@ -97,8 +110,10 @@ namespace WebApplication.Controllers
         public IActionResult Update(string GrainId)
         {
             var dal = new GrainDal();
+            var grainTypeDal = new GrainTypeDal();
             var p = dal.Find(GrainId);
             var model = mapper.Map<GrainUpdateModel>(p);
+            model.GrainTypes = grainTypeDal.Query();
             return View(model);
         }
 

@@ -16,17 +16,65 @@
 
     </div>*@
     <div region="center" border="false" style=" padding:3px 3px 3px 3px ;">
-        <table id="tt" class="easyui-datagrid" fit="true" fitColumns="false" toolbar="#tb"
-               singleSelect="true" pagination="true" pagelist="[50]" pagesize="50" striped="true" rownumbers="true"
-               url="/Formula/JsonIndex">
-            <thead>
-                @await Html.PartialAsync("_TableColumn", new PartialTableColumnModel() { FunctionId = function.FunctionId, CurrentAdmin = Model.CurrentAdmin })
-            </thead>
-        </table>
+        <div class="easyui-layout" fit="true">
+            <div region="center" border="false" title="配方列表" style=" padding: 3px 3px 3px 3px;">
+                <table id="tt" class="easyui-datagrid" fit="true" fitColumns="false" toolbar="#tb"
+                       singleSelect="true" pagination="true" pagelist="[50]" pagesize="50" striped="true" rownumbers="true"
+                       url="/Formula/JsonIndex">
+                    <thead>
+                        @await Html.PartialAsync("_TableColumn", new PartialTableColumnModel() { FunctionId = function.FunctionId, CurrentAdmin = Model.CurrentAdmin })
+                    </thead>
+                </table>
+            </div>
+            <div data-options="region:'east',split:true" title="明细" style="width:900px;padding: 3px 3px 3px 3px;">
+                <div class="easyui-tabs" fit="true"plain="true">
+                    <div title="大料" style="padding:3px;">
+                        <table id="tt1" class="easyui-datagrid" fit="true" fitColumns="false" toolbar="#tb1"
+                               singleSelect="true" pagination="true" pagelist="[50]" pagesize="50" striped="true" rownumbers="true"
+                               url="/Formula/JsonIndex">
+                            <thead>
+                                @await Html.PartialAsync("_TableColumn", new PartialTableColumnModel() { FunctionId = function.FunctionId, CurrentAdmin = Model.CurrentAdmin })
+                            </thead>
+                        </table>
+                    </div>
+                    <div title="小料" style="padding:3px;">
+                        <table id="tt2" class="easyui-datagrid" fit="true" fitColumns="false" toolbar="#tb2"
+                               singleSelect="true" pagination="true" pagelist="[50]" pagesize="50" striped="true" rownumbers="true"
+                               url="/Formula/JsonIndex">
+                            <thead>
+                                @await Html.PartialAsync("_TableColumn", new PartialTableColumnModel() { FunctionId = function.FunctionId, CurrentAdmin = Model.CurrentAdmin })
+                            </thead>
+                        </table>
+                    </div>
+                    <div title="油脂" style="padding:3px;">
+                        <table id="tt3" class="easyui-datagrid" fit="true" fitColumns="false" toolbar="#tb3"
+                               singleSelect="true" pagination="true" pagelist="[50]" pagesize="50" striped="true" rownumbers="true"
+                               url="/Formula/JsonIndex">
+                            <thead>
+                                @await Html.PartialAsync("_TableColumn", new PartialTableColumnModel() { FunctionId = function.FunctionId, CurrentAdmin = Model.CurrentAdmin })
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
 <div id="tb">
+    @await Html.PartialAsync("_TableCommand", new PartialTableCommandModel() { FunctionId = function.FunctionId, CurrentAdmin = Model.CurrentAdmin })
+</div>
+
+<div id="tb1">
+    @await Html.PartialAsync("_TableCommand", new PartialTableCommandModel() { FunctionId = function.FunctionId, CurrentAdmin = Model.CurrentAdmin })
+</div>
+
+<div id="tb2">
+    @await Html.PartialAsync("_TableCommand", new PartialTableCommandModel() { FunctionId = function.FunctionId, CurrentAdmin = Model.CurrentAdmin })
+</div>
+
+<div id="tb3">
     @await Html.PartialAsync("_TableCommand", new PartialTableCommandModel() { FunctionId = function.FunctionId, CurrentAdmin = Model.CurrentAdmin })
 </div>
 

@@ -13,9 +13,6 @@
 
 
 <div class="easyui-layout" fit="true">
-    <div data-options="region:'east',split:true" title="权限" style="width:900px;padding: 3px 3px 3px 3px;">
-        <table id="tt"></table>
-    </div>
     <div region="center" border="false" title="角色" style=" padding: 3px 3px 3px 3px;">
         <table id="tt2" name="tt2" class="easyui-datagrid" fit="true" fitColumns="false" toolbar="#tb"
                singleSelect="true" pagination="false" striped="true" rownumbers="true" url="/Role/JsonIndex">
@@ -23,6 +20,9 @@
             <th field="Name" align="left" width="100">名称</th>
             </thead>
         </table>
+    </div>
+    <div data-options="region:'east',split:true" title="权限" style="width:900px;padding: 3px 3px 3px 3px;">
+        <table id="tt"></table>
     </div>
 </div>
 

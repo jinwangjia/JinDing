@@ -60,6 +60,7 @@ namespace SqlDal
         /// 物料
         /// </summary>
         public DbSet<GrainDefinition> Grain { get; set; }
+        public DbSet<GrainTypeDefinition> GrainType { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

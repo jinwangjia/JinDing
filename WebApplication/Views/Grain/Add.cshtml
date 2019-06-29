@@ -17,6 +17,13 @@
                 </td>
             </tr>
             <tr>
+                <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainTypeId"></label>:</td>
+                <td align="left" bgcolor="#F6F6F6">
+                    @Html.DropDownListFor(o => o.GrainTypeId, Model.GrainTypes.Select(o => new SelectListItem() { Value = o.GrainTypeId.ToString(), Text = o.GrainTypeName }))
+                    <span asp-validation-for="GrainTypeId"></span>
+                </td>
+            </tr>
+            <tr>
                 <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainCode"></label>:</td>
                 <td align="left" bgcolor="#F6F6F6">
                     <input asp-for="GrainCode" />
