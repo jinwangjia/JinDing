@@ -12,77 +12,77 @@
             <tr>
                 <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainId"></label>:</td>
                 <td align="left" bgcolor="#F6F6F6">
-                    <input asp-for="GrainId" /><button onclick="generateGuidCode();">=</button>
+                    <input asp-for="GrainId" class="easyui-textbox"/><button onclick="generateGuidCode();">=</button>
                     <span asp-validation-for="GrainId"></span>
                 </td>
             </tr>
             <tr>
                 <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainName"></label>:</td>
                 <td align="left" bgcolor="#F6F6F6">
-                    <input asp-for="GrainName" />
+                    <input asp-for="GrainName"  class="easyui-textbox"/>
                     <span asp-validation-for="GrainName"></span>
                 </td>
             </tr>
             <tr>
                 <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainTypeId"></label>:</td>
                 <td align="left" bgcolor="#F6F6F6">
-                    @Html.DropDownListFor(o => o.GrainTypeId, Model.GrainTypes.Select(o => new SelectListItem() { Value = o.GrainTypeId.ToString(), Text = o.GrainTypeName }))
+                    @Html.DropDownListFor(o => o.GrainTypeId, Model.GrainTypes.Select(o => new SelectListItem() { Value = o.GrainTypeId.ToString(), Text = o.GrainTypeName }), new { Class = "easyui-combobox" })
                     <span asp-validation-for="GrainTypeId"></span>
                 </td>
             </tr>
             <tr>
                 <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainType2Id"></label>:</td>
                 <td align="left" bgcolor="#F6F6F6">
-                    @Html.DropDownListFor(o => o.GrainType2Id, Model.GrainType2s.Select(o => new SelectListItem() { Value = o.GrainType2Id.ToString(), Text = o.GrainType2Name }))
+                    @Html.DropDownListFor(o => o.GrainType2Id, Model.GrainType2s.Select(o => new SelectListItem() { Value = o.GrainType2Id.ToString(), Text = o.GrainType2Name }), new { Class = "easyui-combobox" })
                     <span asp-validation-for="GrainType2Id"></span>
                 </td>
             </tr>
             <tr>
                 <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainCode"></label>:</td>
                 <td align="left" bgcolor="#F6F6F6">
-                    <input asp-for="GrainCode" />
+                    <input asp-for="GrainCode"  class="easyui-textbox"/>
                     <span asp-validation-for="GrainCode"></span>
                 </td>
             </tr>
             <tr>
                 <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainPinYin"></label>:</td>
                 <td align="left" bgcolor="#F6F6F6">
-                    <input asp-for="GrainPinYin" />
+                    <input asp-for="GrainPinYin"  class="easyui-textbox"/>
                     <span asp-validation-for="GrainPinYin"></span>
                 </td>
             </tr>
             <tr>
                 <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainColor"></label>:</td>
                 <td align="left" bgcolor="#F6F6F6">
-                    <input asp-for="GrainColor" />
+                    <input asp-for="GrainColor"  class="easyui-textbox"/>
                     <span asp-validation-for="GrainColor"></span>
                 </td>
             </tr>
             <tr>
                 <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainWeight"></label>:</td>
                 <td align="left" bgcolor="#F6F6F6">
-                    <input asp-for="GrainWeight" />
+                    <input asp-for="GrainWeight"  class="easyui-textbox"/>
                     <span asp-validation-for="GrainWeight"></span>
                 </td>
             </tr>
             <tr>
                 <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainUnit"></label>:</td>
                 <td align="left" bgcolor="#F6F6F6">
-                    <input asp-for="GrainUnit" />
+                    <input asp-for="GrainUnit"  class="easyui-textbox"/>
                     <span asp-validation-for="GrainUnit"></span>
                 </td>
             </tr>
             <tr>
                 <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainDescription"></label>:</td>
                 <td align="left" bgcolor="#F6F6F6">
-                    <input asp-for="GrainDescription" />
+                    <input asp-for="GrainDescription"  class="easyui-textbox"/>
                     <span asp-validation-for="GrainDescription"></span>
                 </td>
             </tr>
             <tr>
                 <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainComment"></label>:</td>
                 <td align="left" bgcolor="#F6F6F6">
-                    <input asp-for="GrainComment" />
+                    <input asp-for="GrainComment"  class="easyui-textbox"/>
                     <span asp-validation-for="GrainComment"></span>
                 </td>
             </tr>

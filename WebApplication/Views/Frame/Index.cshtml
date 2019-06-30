@@ -17,8 +17,14 @@
     <meta name="renderer" content="webkit" />
     <meta name="viewport" content="width=device-width" />
     <script src="~/js/jquery-1.4.4.js"></script>
-    <script src="~/easyui/jquery.easyui.min.js"></script>
-    <link href="~/themes/base/easyui.css" rel="stylesheet" />
+    @*<script src="~/easyui/jquery.easyui.min.js"></script>
+    <link href="~/themes/base/easyui.css" rel="stylesheet" />*@
+
+    <link href="~/jquery-easyui-1.7.0/themes/icon.css" rel="stylesheet" />
+    <link href="~/jquery-easyui-1.7.0/themes/default/easyui.css" rel="stylesheet" />
+    <script src="~/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
+    <script src="~/jquery-easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
+
     <link href="~/themes/skin-@(themes).css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
     <link href="~/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
@@ -87,7 +93,7 @@
     </div>
 
     <div id="center" data-options="region:'center',border:false">
-        <div id="mainTab" class="easyui-tabs" data-options="fit:true">
+        <div id="mainTab" class="easyui-tabs" data-options="fit:true" plain="true">
             <div title="我的桌面" data-options="closable:true,iconCls:'fa fa-tachometer'">
                 <iframe scrolling="auto" frameborder="0" src="/Home/Desktop" style="width: 100%; height: 100%;"></iframe>
             </div>
