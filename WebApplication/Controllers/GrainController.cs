@@ -47,6 +47,16 @@ namespace WebApplication.Controllers
                     return string.Empty;
                 return p.GrainTypeName;
             });
+
+            var grainType2Dal = new GrainType2Dal();
+            var grainType2List = grainType2Dal.Query();
+            var grainType2Fuc = new Func<int, string>((id) =>
+            {
+                var p = grainType2List.SingleOrDefault(o => o.GrainType2Id == id);
+                if (p == null)
+                    return string.Empty;
+                return p.GrainType2Name;
+            });
             var param = new GrainDal.QueryByParam1In()
             {
                 //BeginDateTime = DateTime.Parse(model.BeginDateTime),
@@ -64,6 +74,13 @@ namespace WebApplication.Controllers
                             GrainPinYin = o.GrainPinYin,
                             GrainTypeId = o.GrainTypeId,
                             GrainTypeName = grainTypeFuc(o.GrainTypeId),
+                            GrainType2Name = grainType2Fuc(o.GrainType2Id),
+                            GrainDescription=o.GrainDescription,
+                            GrainColor=o.GrainColor,
+                            GrainWeight=o.GrainWeight,
+                            GrainUnit=o.GrainUnit,
+                            GrainTypeId2=o.GrainType2Id,
+                            GrainComment=o.GrainComment,
                         };
 
             var grid = new
@@ -78,9 +95,11 @@ namespace WebApplication.Controllers
         public IActionResult Add()
         {
             var grainTypeDal = new GrainTypeDal();
+            var grainType2Dal = new GrainType2Dal();
             var model = new GrainAddModel()
             {
                 GrainTypes = grainTypeDal.Query(),
+                GrainType2s = grainType2Dal.Query(),
             };
             return View(model);
         }
@@ -111,9 +130,11 @@ namespace WebApplication.Controllers
         {
             var dal = new GrainDal();
             var grainTypeDal = new GrainTypeDal();
+            var grainType2Dal = new GrainType2Dal();
             var p = dal.Find(GrainId);
             var model = mapper.Map<GrainUpdateModel>(p);
             model.GrainTypes = grainTypeDal.Query();
+            model.GrainType2s = grainType2Dal.Query();
             return View(model);
         }
 

@@ -25,6 +25,13 @@
                     </td>
                 </tr>
                 <tr>
+                    <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainType2Id"></label>:</td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        @Html.DropDownListFor(o => o.GrainType2Id, Model.GrainType2s.Select(o => new SelectListItem() { Value = o.GrainType2Id.ToString(), Text = o.GrainType2Name }))
+                        <span asp-validation-for="GrainType2Id"></span>
+                    </td>
+                </tr>
+                <tr>
                     <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainCode"></label>:</td>
                     <td align="left" bgcolor="#F6F6F6">
                         <input asp-for="GrainCode" />
@@ -36,6 +43,41 @@
                     <td align="left" bgcolor="#F6F6F6">
                         <input asp-for="GrainPinYin" />
                         <span asp-validation-for="GrainPinYin"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainColor"></label>:</td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        <input asp-for="GrainColor" />
+                        <span asp-validation-for="GrainColor"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainWeight"></label>:</td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        <input asp-for="GrainWeight" />
+                        <span asp-validation-for="GrainWeight"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainUnit"></label>:</td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        <input asp-for="GrainUnit" />
+                        <span asp-validation-for="GrainUnit"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainDescription"></label>:</td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        <input asp-for="GrainDescription" />
+                        <span asp-validation-for="GrainDescription"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainComment"></label>:</td>
+                    <td align="left" bgcolor="#F6F6F6">
+                        <input asp-for="GrainComment" />
+                        <span asp-validation-for="GrainComment"></span>
                     </td>
                 </tr>
                 <tr>

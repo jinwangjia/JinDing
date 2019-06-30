@@ -73,11 +73,10 @@
     });
 
 
-    function add() {
-
+    function add() {        
         $("#modalwindow").html("<iframe width='100%' height='100%' scrolling='auto' frameborder='0'' src='/Grain/Add'></iframe>");
         $("#modalwindow").window({
-            title: '添加', width: 700, height: 400, left: ($(window).width() - 700) / 2, top: ($(window).height() - 400) / 2,
+            title: '添加', width: 1000, height: 600, left: ($(window).width() - 1000) / 2, top: ($(window).height() - 600) / 2,
             iconCls: 'icon-add'
         }).window('open');
     }
@@ -92,10 +91,10 @@
             $("#modalwindow").html(str);
             $("#modalwindow").window({
                 title: '修改',
-                width: 700,
-                height: 400,
-                left: ($(window).width() - 700) / 2,
-                top: ($(window).height() - 400) / 2,
+                width: 1000,
+                height: 600,
+                left: ($(window).width() - 1000) / 2,
+                top: ($(window).height() - 600) / 2,
                 iconCls: 'icon-edit'
             }).window('open');
         }

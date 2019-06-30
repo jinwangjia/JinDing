@@ -64,6 +64,7 @@ namespace SqlDal
         /// 物料类别
         /// </summary>
         public DbSet<GrainTypeDefinition> GrainType { get; set; }
+        public DbSet<GrainType2Definition> GrainType2 { get; set; }
         /// <summary>
         /// 配方之物料表
         /// </summary>

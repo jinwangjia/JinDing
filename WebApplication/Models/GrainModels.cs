@@ -34,6 +34,12 @@ namespace WebApplication.Models
     public class GrainAddModel
     {
         /// <summary>
+        /// 物料标示/物料PK
+        /// </summary>
+        [DisplayName("物料标示/物料PK")]
+        [Required(ErrorMessage = "{0}不能为空")]
+        public string GrainId { get; set; }
+        /// <summary>
         /// 物料名称
         /// </summary>
         [DisplayName("物料名称")]
@@ -59,16 +65,48 @@ namespace WebApplication.Models
         [DisplayName("物料类别标识")]
         [Required(ErrorMessage = "{0}不能为空")]
         public int GrainTypeId { get; set; }
+        /// <summary>
+        /// 物料描述
+        /// </summary>
+        [DisplayName("物料描述")]
+        public string GrainDescription { get; set; }
+        /// <summary>
+        /// 物料颜色
+        /// </summary>
+        [DisplayName("物料颜色")]
+        public string GrainColor { get; set; }
+        /// <summary>
+        /// 物料重量
+        /// </summary>
+        [DisplayName("物料重量")]
+        public decimal GrainWeight { get; set; }
+        /// <summary>
+        /// 物料单位
+        /// </summary>
+        [DisplayName("物料单位")]
+        public string GrainUnit { get; set; }
+        /// <summary>
+        /// 物料分类(产品半成品袋皮预混料等)
+        /// </summary>
+        [DisplayName("物料分类")]
+        [Required(ErrorMessage = "{0}不能为空")]
+        public int GrainType2Id { get; set; }
+        /// <summary>
+        /// 备注
+        /// </summary>
+        [DisplayName("备注")]
+        public string GrainComment { get; set; }
 
         public IList<GrainTypeDefinition> GrainTypes { get; set; }
+        public IList<GrainType2Definition> GrainType2s { get; set; }
     }
 
     public class GrainUpdateModel
     {
         /// <summary>
-        /// 物料标示
+        /// 物料标示/物料PK
         /// </summary>
-        [DisplayName("物料标示")]
+        [DisplayName("物料标示/物料PK")]
         [Required(ErrorMessage = "{0}不能为空")]
         public string GrainId { get; set; }
         /// <summary>
@@ -96,8 +134,40 @@ namespace WebApplication.Models
         [DisplayName("物料类别标识")]
         [Required(ErrorMessage = "{0}不能为空")]
         public int GrainTypeId { get; set; }
+        /// <summary>
+        /// 物料描述
+        /// </summary>
+        [DisplayName("物料描述")]
+        public string GrainDescription { get; set; }
+        /// <summary>
+        /// 物料颜色
+        /// </summary>
+        [DisplayName("物料颜色")]
+        public string GrainColor { get; set; }
+        /// <summary>
+        /// 物料重量
+        /// </summary>
+        [DisplayName("物料重量")]
+        public decimal GrainWeight { get; set; }
+        /// <summary>
+        /// 物料单位
+        /// </summary>
+        [DisplayName("物料单位")]
+        public string GrainUnit { get; set; }
+        /// <summary>
+        /// 物料分类(产品半成品袋皮预混料等)
+        /// </summary>
+        [DisplayName("物料分类")]
+        [Required(ErrorMessage = "{0}不能为空")]
+        public int GrainType2Id { get; set; }
+        /// <summary>
+        /// 备注
+        /// </summary>
+        [DisplayName("备注")]
+        public string GrainComment { get; set; }
 
         public IList<GrainTypeDefinition> GrainTypes { get; set; }
+        public IList<GrainType2Definition> GrainType2s { get; set; }
 
     }
 
@@ -105,11 +175,7 @@ namespace WebApplication.Models
     {
         public GrainProfile()
         {
-            CreateMap<GrainAddModel, GrainDefinition>().BeforeMap((dto, p) =>
-            {
-                p.GrainId = Guid.NewGuid().ToString();
-            });
-
+            CreateMap<GrainAddModel, GrainDefinition>();
             CreateMap<GrainDefinition, GrainUpdateModel>();
             CreateMap<GrainUpdateModel, GrainDefinition>();
             CreateMap<GrainDefinition, GrainJsonIndexModel>();
