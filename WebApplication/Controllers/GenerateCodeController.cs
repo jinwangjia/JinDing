@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApplication.Controllers
@@ -20,6 +21,16 @@ namespace WebApplication.Controllers
         public IActionResult GuidCode()
         {
             return Json(new { state = "ok", data = Guid.NewGuid().ToString("N") });
+        }
+
+        /// <summary>
+        /// 汉字转首字母
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public IActionResult FirstSpell(string value)
+        {
+            return Json(new { state = "ok", data = PingYinHelper.FirstSpell(value) });
         }
     }
 }

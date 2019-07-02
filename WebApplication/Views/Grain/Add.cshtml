@@ -3,11 +3,9 @@
 @{
 
 }
-
 <div class="easyui-layout" data-options="fit:true">
     <div data-options="region:'center'">
-        @using (Html.BeginForm("Add", "Grain", FormMethod.Post, new { id = "Add", autocomplete = "off" }))
-        {
+        <form>
             <div class="container-fluid" style="margin-top:30px;">
                 <div class="row form-group">
                     <div class="col">
@@ -15,8 +13,11 @@
                             <div class="col-sm-4 text-right font-weight-bold">
                                 <span class="text-danger">*&nbsp;</span><label asp-for="GrainId" class="control-label"></label>：
                             </div>
-                            <div class="col-sm-8">
-                                <input asp-for="GrainId" class="form-control form-control-sm  is-invalid" />
+                            <div class="col-sm-8 input-group input-group-sm">
+                                <input asp-for="GrainId" class="form-control form-control-sm text-lowercase" />
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button" onclick="javascript: generateGuidCode();">=</button>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -43,6 +44,47 @@
                             </div>
                             <div class="col-sm-8">
                                 <span asp-validation-for="GrainName" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold">
+                                <span class="text-danger">*&nbsp;</span><label asp-for="GrainCode" class="control-label"></label>：
+                            </div>
+                            <div class="col-sm-8 ">
+                                <input asp-for="GrainCode" class="form-control form-control-sm text-lowercase" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold">
+
+                            </div>
+                            <div class="col-sm-8">
+                                <span asp-validation-for="GrainCode" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold">
+                                <span class="text-danger">*&nbsp;</span><label asp-for="GrainPinYin" class="control-label"></label>：
+                            </div>
+                            <div class="col-sm-8 input-group input-group-sm">
+                                <input asp-for="GrainPinYin" class="form-control form-control-sm text-lowercase" />
+                                <div class="input-group-append">
+                                    <button class="btn btn-secondary" type="button" onclick="javascript: generateFirstSpell();">=</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold">
+
+                            </div>
+                            <div class="col-sm-8">
+                                <span asp-validation-for="GrainPinYin" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -85,47 +127,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row form-group">
-                    <div class="col">
-                        <div class="row">
-                            <div class="col-sm-4 text-right font-weight-bold">
-                                <span class="text-danger">*&nbsp;</span><label asp-for="GrainCode" class="control-label"></label>：
-                            </div>
-                            <div class="col-sm-8 ">
-                                <input asp-for="GrainCode" class="form-control form-control-sm text-lowercase" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4 text-right font-weight-bold">
-
-                            </div>
-                            <div class="col-sm-8">
-                                <span asp-validation-for="GrainCode" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="row">
-                            <div class="col-sm-4 text-right font-weight-bold">
-                                <span class="text-danger">*&nbsp;</span><label asp-for="GrainPinYin" class="control-label"></label>：
-                            </div>
-                            <div class="col-sm-8 input-group input-group-sm">
-                                <input asp-for="GrainPinYin" class="form-control form-control-sm text-lowercase" />
-                                <div class="input-group-append">
-                                    <button class="btn btn-secondary" type="button" id="button-addon2">=</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4 text-right font-weight-bold">
-
-                            </div>
-                            <div class="col-sm-8">
-                                <span asp-validation-for="GrainPinYin" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="row form-group">
                     <div class="col">
                         <div class="row">
@@ -204,8 +206,8 @@
                     </div>
                 </div>
             </div>
-
-        }
+        </form>
+        
     </div>
     <div data-options="region:'south',border:false" style="text-align:right;padding:5px 5px 5px 5px;">
         <button class="btn btn-primary btn-sm" href="javascript:void(0)" onclick="javascript:submit1()" style="width:80px">确定</button>
@@ -219,7 +221,8 @@
             $.ajax({
                 url: "/Grain/Add",
                 type: "Post",
-                data: $("#Add").serialize(),
+                data: $("form").serialize(),
+                //data: $("#Add").serialize(),
                 dataType: "json",
                 success: function (data) {
                     if (data.state == "ok") {
@@ -233,6 +236,7 @@
         }
     }
 
+    //获取一个GUID
     function generateGuidCode() {
         $.ajax({
             url: "/GenerateCode/GuidCode",
@@ -241,6 +245,31 @@
             success: function (data) {
                 if (data.state == "ok") {
                     $("#GrainId").val(data.data);
+                }
+                else {
+                    alert(data.data);
+                }
+            }
+        });
+    }
+
+    //获取汉字转首字母
+    function generateFirstSpell() {
+        $("#GrainPinYin").val("");
+        var value = $("#GrainName").val();
+        if (value == "") {
+            window.parent.frameReturnFalse("名称不能为空，请首先填写名称。");
+            return;
+        }
+
+        $.ajax({
+            url: "/GenerateCode/FirstSpell",
+            type: "Post",
+            data: { value:value},
+            dataType: "json",
+            success: function (data) {
+                if (data.state == "ok") {
+                    $("#GrainPinYin").val(data.data);
                 }
                 else {
                     alert(data.data);
