@@ -68,7 +68,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AdministratorAddModel model, FormCollection collection)
+        public IActionResult Add(AdministratorAddModel model)
         {
             var oldAdmin = AdministratorDal.FindByAccounts(model.Accounts);
             if (oldAdmin != null)

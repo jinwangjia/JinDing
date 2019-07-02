@@ -7,47 +7,78 @@
 
 <div class="easyui-layout" data-options="fit:true">
     <div data-options="region:'center'" style="padding:10px;">
-        @using (Html.BeginForm("AddSysAdmin", "Administrator", FormMethod.Post, new { id = "AddSysAdmin", autocomplete = "off" }))
-        {
-            <table width="100%" border="0" align="center" cellpadding="5" cellspacing="1">
-                <tr>
-                    <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.Name)</td>
-                    <td align="left" bgcolor="#F6F6F6">
-                        @Html.TextBoxFor(m => m.Name)
-                        @Html.ValidationMessageFor(m => m.Name)
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.Accounts)</td>
-                    <td align="left" bgcolor="#F6F6F6">
-                        @Html.TextBoxFor(m => m.Accounts)
-                        @Html.ValidationMessageFor(m => m.Accounts)
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.PassWord)</td>
-                    <td align="left" bgcolor="#F6F6F6">
-                        @Html.PasswordFor(m => m.PassWord)
-                        @Html.ValidationMessageFor(m => m.PassWord)
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.Phone)</td>
-                    <td align="left" bgcolor="#F6F6F6">
-                        @Html.TextBoxFor(m => m.Phone)
-                        @Html.ValidationMessageFor(m => m.Phone)
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" bgcolor="#F6F6F6"></td>
-                    <td align="left" bgcolor="#F6F6F6">
-                        <span class="f12red">@ViewBag.Message</span>
-                    </td>
-                </tr>
-            </table>
-            <input name="Accounts1" type="text" style="width:1px;height:1px;" />
-            <input name="Password1" type="password" style="width:1px;height:1px;" />
-        }
+        <form>
+            <div class="container-fluid" style="padding-top:30px;">
+                <div class="row">
+                    <div class="col-sm-2 text-right font-weight-bold">
+                        <span class="text-danger">*&nbsp;</span><label asp-for="Name" class="control-label"></label>：
+                    </div>
+                    <div class="col-sm-10">
+                        <input asp-for="Name" class="form-control" />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2 text-right font-weight-bold">
+
+                    </div>
+                    <div class="col-sm-10">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-weight-bold">
+                        <span class="text-danger">*&nbsp;</span><label asp-for="Accounts" class="control-label"></label><span>：</span>
+                    </div>
+                    <div class="col-sm-10">
+                        <input asp-for="Accounts" class="form-control" />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2 text-right font-weight-bold">
+
+                    </div>
+                    <div class="col-sm-10">
+                        <span asp-validation-for="Accounts" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-weight-bold">
+                        <span class="text-danger">*&nbsp;</span><label asp-for="PassWord" class="control-label"></label>：
+                    </div>
+                    <div class="col-sm-10">
+                        <input asp-for="PassWord" class="form-control" />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2 text-right font-weight-bold">
+
+                    </div>
+                    <div class="col-sm-10">
+                        <span asp-validation-for="PassWord" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-weight-bold">
+                        <label asp-for="Phone" class="control-label"></label>：
+                    </div>
+                    <div class="col-sm-10">
+                        <input asp-for="Phone" class="form-control" />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2 text-right font-weight-bold">
+
+                    </div>
+                    <div class="col-sm-10">
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <input name="Accounts1" type="text" style="width:1px;height:1px;" />
+                    <input name="Password1" type="password" style="width:1px;height:1px;" />
+                </div>
+            </div>
+        </form>
     </div>
 	<div data-options="region:'south',border:false" style="text-align:right;padding:5px 5px 5px 5px;">
 		<a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)" onclick="javascript:submit1()" style="width:80px">确定</a>
@@ -62,7 +93,7 @@
             $.ajax({
                 url: "/Administrator/AddSysAdmin",
                 type: "Post",
-                data: $("#AddSysAdmin").serialize(),
+                data: $("form").serialize(),
                 dataType: "json",
                 success: function (data) {
                     if (data == 1) {
