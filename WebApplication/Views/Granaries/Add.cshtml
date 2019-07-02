@@ -6,41 +6,61 @@
 
 <div class="easyui-layout" data-options="fit:true">
     <div data-options="region:'center'" style="padding:10px;">
-        @using (Html.BeginForm("Add", "Granaries", FormMethod.Post, new { id = "Add", autocomplete = "off" }))
-        {
-        <table width="100%" border="0" align="center" cellpadding="5" cellspacing="1">
-            <tr>
-                <td align="right" bgcolor="#F6F6F6"><label asp-for="GranariesName"></label>:</td>
-                <td align="left" bgcolor="#F6F6F6">
-                    <input asp-for="GranariesName" />
-                    <span asp-validation-for="GranariesName"></span>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" bgcolor="#F6F6F6"><label asp-for="GranariesOrder"></label>:</td>
-                <td align="left" bgcolor="#F6F6F6">
-                    <input asp-for="GranariesOrder" />
-                    <span asp-validation-for="GranariesOrder"></span>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" bgcolor="#F6F6F6"><label asp-for="MaxCapacity"></label>:</td>
-                <td align="left" bgcolor="#F6F6F6">
-                    <input asp-for="MaxCapacity" />
-                    <span asp-validation-for="MaxCapacity"></span>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" bgcolor="#F6F6F6"></td>
-                <td align="left" bgcolor="#F6F6F6">
-                    <span class="f12red">@ViewBag.Message</span>
-                </td>
-            </tr>
-        </table>
-        }
+        <form>
+            <div class="container-fluid" style="padding-top:30px;">
+                <div class="row">
+                    <div class="col-sm-3 text-right font-weight-bold">
+                        <span class="text-danger">*&nbsp;</span><label asp-for="GranariesName" class="control-label"></label>：
+                    </div>
+                    <div class="col-sm-9">
+                        <input asp-for="GranariesName" class="form-control" />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-3 text-right font-weight-bold">
+
+                    </div>
+                    <div class="col-sm-9">
+                        <span asp-validation-for="GranariesName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 text-right font-weight-bold">
+                        <span class="text-danger">*&nbsp;</span><label asp-for="GranariesOrder" class="control-label"></label>：
+                    </div>
+                    <div class="col-sm-9">
+                        <input asp-for="GranariesOrder" class="form-control" />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-3 text-right font-weight-bold">
+
+                    </div>
+                    <div class="col-sm-9">
+                        <span asp-validation-for="GranariesOrder" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 text-right font-weight-bold">
+                        <span class="text-danger">*&nbsp;</span><label asp-for="MaxCapacity" class="control-label"></label>：
+                    </div>
+                    <div class="col-sm-9">
+                        <input asp-for="MaxCapacity" class="form-control" />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-3 text-right font-weight-bold">
+
+                    </div>
+                    <div class="col-sm-9">
+                        <span asp-validation-for="MaxCapacity" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
     <div data-options="region:'south',border:false" style="text-align:right;padding:5px 5px 5px 5px;">
-        <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)" onclick="javascript:submit1()" style="width:80px">确定</a>
+        <button class="btn btn-primary btn-sm" href="javascript:void(0)" onclick="javascript:submit1()" style="width:80px">确定</button>
     </div>
 </div>
 
@@ -51,7 +71,7 @@
             $.ajax({
                 url: "/Granaries/Add",
                 type: "Post",
-                data: $("#Add").serialize(),
+                data: $("form").serialize(),
                 dataType: "json",
                 success: function (data) {
                     if (data.state == "ok") {

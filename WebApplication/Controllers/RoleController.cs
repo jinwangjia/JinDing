@@ -98,12 +98,13 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult Save(RoleSaveModel model, FormCollection collection)
+        public IActionResult Save(RoleSaveModel model)//, FormCollection collection
         {
             try
             {
-                var roleAndFunctonIds = collection["FunctionIds"];
-                var roleAndCommandIds = collection["CommandIds"];
+                var a =this.Request;
+                var roleAndFunctonIds =Request.Form["FunctionIds"];
+                var roleAndCommandIds = Request.Form["CommandIds"];
                 RoleDal.Update(model.RoleId,
                     roleAndFunctonIds.Count == 0 ? new List<string>() : roleAndFunctonIds.ToList(),
                     roleAndCommandIds.Count == 0 ? new List<string>() : roleAndCommandIds.ToList());

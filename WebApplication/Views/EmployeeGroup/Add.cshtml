@@ -13,64 +13,109 @@
 
 <div class="easyui-layout" data-options="fit:true">
     <div data-options="region:'center'" style="padding:10px;">
-        @using (Html.BeginForm("Add", "EmployeeGroup", FormMethod.Post, new { id = "Add", autocomplete = "off" }))
-        {
-        <table width="100%" border="0" align="center" cellpadding="5" cellspacing="1">
-            <tr>
-                <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.EmployeeGroupName):</td>
-                <td align="left" bgcolor="#F6F6F6">
-                    @Html.TextBoxFor(m => m.EmployeeGroupName)
-                    @Html.ValidationMessageFor(m => m.EmployeeGroupName)
-                </td>
-            </tr>
-            <tr>
-                <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.LeftTime):</td>
-                <td align="left" bgcolor="#F6F6F6">
-                    @Html.DropDownListFor(m => m.LeftTime, timeList)
-                    @Html.ValidationMessageFor(m => m.LeftTime)
-                </td>
-            </tr>
-            <tr>
-                <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.RightTime):</td>
-                <td align="left" bgcolor="#F6F6F6">
-                    @Html.DropDownListFor(m => m.RightTime, timeList)
-                    @Html.ValidationMessageFor(m => m.RightTime)
-                </td>
-            </tr>
-            <tr>
-                <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.MonitorId):</td>
-                <td align="left" bgcolor="#F6F6F6">
-                    @Html.DropDownListFor(m => m.MonitorId, administratorList)
-                    @Html.ValidationMessageFor(m => m.MonitorId)
-                </td>
-            </tr>
-            <tr>
-                <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.OtherEmployeesId1):</td>
-                <td align="left" bgcolor="#F6F6F6">
-                    @Html.DropDownListFor(m => m.OtherEmployeesId1, administratorList)
-                    @Html.ValidationMessageFor(m => m.OtherEmployeesId1)
-                </td>
-            </tr>
-            <tr>
-                <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.OtherEmployeesId2):</td>
-                <td align="left" bgcolor="#F6F6F6">
-                    @Html.DropDownListFor(m => m.OtherEmployeesId2, administratorList)
-                    @Html.ValidationMessageFor(m => m.OtherEmployeesId2)
-                </td>
-            </tr>
+        <form>
+            <div class="container-fluid" style="padding-top:30px;">
+                <div class="row">
+                    <div class="col-sm-2 text-right font-weight-bold">
+                        <span class="text-danger">*&nbsp;</span><label asp-for="EmployeeGroupName" class="control-label"></label>：
+                    </div>
+                    <div class="col-sm-10">
+                        <input asp-for="EmployeeGroupName" class="form-control" />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2 text-right font-weight-bold">
 
+                    </div>
+                    <div class="col-sm-10">
+                        <span asp-validation-for="EmployeeGroupName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-weight-bold">
+                        <span class="text-danger">*&nbsp;</span><label asp-for="LeftTime" class="control-label"></label>：
+                    </div>
+                    <div class="col-sm-10">
+                        @Html.DropDownListFor(m => m.LeftTime, timeList, new { Class = "form-control" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2 text-right font-weight-bold">
 
-            <tr>
-                <td align="right" bgcolor="#F6F6F6"></td>
-                <td align="left" bgcolor="#F6F6F6">
-                    <span class="f12red">@ViewBag.Message</span>
-                </td>
-            </tr>
-        </table>
-        }
+                    </div>
+                    <div class="col-sm-10">
+                        <span asp-validation-for="LeftTime" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-weight-bold">
+                        <span class="text-danger">*&nbsp;</span><label asp-for="RightTime" class="control-label"></label>：
+                    </div>
+                    <div class="col-sm-10">
+                        @Html.DropDownListFor(m => m.RightTime, timeList, new { Class = "form-control" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2 text-right font-weight-bold">
+
+                    </div>
+                    <div class="col-sm-10">
+                        <span asp-validation-for="RightTime" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-weight-bold">
+                        <span class="text-danger">*&nbsp;</span><label asp-for="MonitorId" class="control-label"></label>：
+                    </div>
+                    <div class="col-sm-10">
+                        @Html.DropDownListFor(m => m.MonitorId, administratorList, new { Class = "form-control" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2 text-right font-weight-bold">
+
+                    </div>
+                    <div class="col-sm-10">
+                        <span asp-validation-for="MonitorId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-weight-bold">
+                        <span class="text-danger">*&nbsp;</span><label asp-for="OtherEmployeesId1" class="control-label"></label>：
+                    </div>
+                    <div class="col-sm-10">
+                        @Html.DropDownListFor(m => m.OtherEmployeesId1, administratorList, new { Class = "form-control" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2 text-right font-weight-bold">
+
+                    </div>
+                    <div class="col-sm-10">
+                        <span asp-validation-for="OtherEmployeesId2" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-weight-bold">
+                        <span class="text-danger">*&nbsp;</span><label asp-for="LeftTime" class="control-label"></label>：
+                    </div>
+                    <div class="col-sm-10">
+                        @Html.DropDownListFor(m => m.OtherEmployeesId2, administratorList, new { Class = "form-control" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2 text-right font-weight-bold">
+
+                    </div>
+                    <div class="col-sm-10">
+                        <span asp-validation-for="OtherEmployeesId2" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
     <div data-options="region:'south',border:false" style="text-align:right;padding:5px 5px 5px 5px;">
-        <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)" onclick="javascript:submit1()" style="width:80px">确定</a>
+        <button class="btn btn-primary btn-sm" href="javascript:void(0)" onclick="javascript:submit1()" style="width:80px">确定</button>
     </div>
 </div>
 
@@ -81,7 +126,7 @@
             $.ajax({
                 url: "/EmployeeGroup/Add",
                 type: "Post",
-                data: $("#Add").serialize(),
+                data: $("form").serialize(),
                 dataType: "json",
                 success: function (data) {
                     if (data.state == "ok") {

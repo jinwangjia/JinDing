@@ -18,7 +18,7 @@ namespace WebApplication.Models
         /// <summary>
         /// 角色名称
         /// </summary>
-        [DisplayName("角色名称：")]
+        [DisplayName("角色名称")]
         public string Name { get; set; }
     }
 
@@ -27,12 +27,12 @@ namespace WebApplication.Models
         /// <summary>
         /// 角色标识
         /// </summary>
-        [DisplayName("角色标识：")]
+        [DisplayName("角色标识")]
         public string RoleId { get; set; }
         /// <summary>
         /// 角色名称
         /// </summary>
-        [DisplayName("角色名称：")]
+        [DisplayName("角色名称")]
         public string Name { get; set; }
     }
 
@@ -41,7 +41,7 @@ namespace WebApplication.Models
         /// <summary>
         /// 角色标识
         /// </summary>
-        [DisplayName("角色标识：")]
+        [DisplayName("角色标识")]
         public string RoleId { get; set; }
     }
 

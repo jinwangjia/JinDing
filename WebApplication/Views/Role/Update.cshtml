@@ -6,24 +6,31 @@
 
 
 <div class="easyui-layout" data-options="fit:true">
-	<div data-options="region:'center'" style="padding:10px;">
-		@using (Html.BeginForm("Update", "Role", FormMethod.Post, new { id = "Update", autocomplete = "off" }))
-        {      
-            @Html.HiddenFor(o=>o.RoleId)
-            <table width="100%" border="0" align="center" cellpadding="5" cellspacing="1">
-                <tr>
-                    <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.Name)</td>
-                    <td align="left" bgcolor="#F6F6F6">
-                        @Html.TextBoxFor(m => m.Name)
-                        @Html.ValidationMessageFor(m => m.Name)
-                    </td>
-                </tr>
-            </table>    
-        }
-	</div>
+    <div data-options="region:'center'" style="padding:10px;">
+        <form>
+            <input type="hidden" asp-for="RoleId" />
+            <div class="container-fluid" style="padding-top:30px;">
+                <div class="row">
+                    <div class="col-sm-2 text-right font-weight-bold">
+                        <span class="text-danger">*&nbsp;</span><label asp-for="Name" class="control-label"></label>：
+                    </div>
+                    <div class="col-sm-10">
+                        <input asp-for="Name" class="form-control" />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2 text-right font-weight-bold">
+
+                    </div>
+                    <div class="col-sm-10">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 	<div data-options="region:'south',border:false" style="text-align:right;padding:5px 5px 5px 5px;">
-		<a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)" onclick="javascript:submit1()" style="width:80px">确定</a>
-		@*<a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="javascript:alert('cancel')" style="width:80px">取消</a>*@
+        <button class="btn btn-primary btn-sm" href="javascript:void(0)" onclick="javascript:submit1()" style="width:80px">确定</button>
 	</div>
 </div>
 
@@ -33,7 +40,7 @@
         $.ajax({
             url: "/Role/Update",
             type: "Post",
-            data: $("#Update").serialize(),
+            data: $("form").serialize(),
             dataType: "json",
             success: function (data) {
                 if (data == 1) {

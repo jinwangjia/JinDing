@@ -37,19 +37,21 @@ namespace WebApplication.Models
         public IList<FunctionDefinition> Functions { get; set; }
         public IList<string> Pages { get; set; }
 
-        [DisplayName("父功能：")]
+        [DisplayName("父功能")]
+        [Required(ErrorMessage = "{0}不能为空")]
         public string ParentId { get; set; }
-        [DisplayName("名称：")]
-        [Required(ErrorMessage = "该项不能为空")]
-        [StringLength(32, ErrorMessage = "不能超过32个字符")]
+        [DisplayName("名称")]
+        [Required(ErrorMessage = "{0}不能为空")]
+        [StringLength(32,MinimumLength =2, ErrorMessage = "不能超过32个字符")]
         public string Name { get; set; }
-        [DisplayName("图标：")]
+        [DisplayName("图标")]
         public string Icon { get; set; }
-        [DisplayName("页面：")]
+        [DisplayName("页面")]
         public string Page { get; set; }
-        [DisplayName("显示：")]
+        [DisplayName("显示")]
         public bool Display { get; set; }
-        [DisplayName("顺序：")]
+        [DisplayName("顺序")]
+        [Required(ErrorMessage = "{0}不能为空")]
         public int Postion { get; set; }
     }
 
@@ -59,19 +61,21 @@ namespace WebApplication.Models
         public IList<string> Pages { get; set; }
 
         public string FunctionId { get; set; }
-        [DisplayName("父功能：")]
+        [DisplayName("父功能")]
+        [Required(ErrorMessage = "{0}不能为空")]
         public string ParentId { get; set; }
-        [Required(ErrorMessage = "该项不能为空")]
-        [StringLength(32, ErrorMessage = "不能超过32个字符")]
-        [DisplayName("名称：")]
+        [DisplayName("名称")]
+        [Required(ErrorMessage = "{0}不能为空")]
+        [StringLength(32,MinimumLength =2, ErrorMessage = "不能超过32个字符")]
         public string Name { get; set; }
-        [DisplayName("图标：")]
+        [DisplayName("图标")]
         public string Icon { get; set; }
-        [DisplayName("页面：")]
+        [DisplayName("页面")]
         public string Page { get; set; }
-        [DisplayName("显示：")]
+        [DisplayName("显示")]
         public bool Display { get; set; }
-        [DisplayName("顺序：")]
+        [DisplayName("顺序")]
+        [Required(ErrorMessage = "{0}不能为空")]
         public int Postion { get; set; }
     }
 }

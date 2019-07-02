@@ -25,59 +25,107 @@
 
 <div class="easyui-layout" data-options="fit:true">
 	<div data-options="region:'center'" style="padding:10px;">
-		@using (Html.BeginForm("Add", "Function", FormMethod.Post, new { id = "Add", autocomplete = "off" }))
-        {      
-            <table width="100%" border="0" align="center" cellpadding="5" cellspacing="1">
-                <tr>
-                    <td width="80" align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.ParentId)</td>
-                    <td align="left" bgcolor="#F6F6F6">
-                        @Html.DropDownListFor(m => m.ParentId, funList)
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.Name)</td>
-                    <td align="left" bgcolor="#F6F6F6">
-                        @Html.TextBoxFor(m => m.Name)
-                        @Html.ValidationMessageFor(m => m.Name)
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.Icon)</td>
-                    <td align="left" bgcolor="#F6F6F6">
-                        @Html.TextBoxFor(m => m.Icon)
-                        @Html.ValidationMessageFor(m => m.Icon)
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.Page)</td>
-                    <td align="left" bgcolor="#F6F6F6">
-                        @Html.DropDownListFor(m => m.Page, pages)
-                        @Html.ValidationMessageFor(m => m.Page)
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.Display)</td>
-                    <td align="left" bgcolor="#F6F6F6">
-                        @Html.CheckBoxFor(m => m.Display)
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" bgcolor="#F6F6F6">@Html.LabelFor(m => m.Postion)</td>
-                    <td align="left" bgcolor="#F6F6F6">
-                        @Html.TextBoxFor(m => m.Postion)
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" bgcolor="#F6F6F6"></td>
-                    <td align="left" bgcolor="#F6F6F6">
-                        <span class="f12red">@ViewBag.Message</span>
-                    </td>
-                </tr>
-            </table>    
-        }
+        <form>
+            <div class="container-fluid" style="padding-top:30px;">
+                <div class="row">
+                    <div class="col-sm-2 text-right font-weight-bold">
+                        <span class="text-danger">*&nbsp;</span><label asp-for="ParentId" class="control-label"></label>：
+                    </div>
+                    <div class="col-sm-10">
+                        @Html.DropDownListFor(m => m.ParentId, funList, new { Class = "form-control" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2 text-right font-weight-bold">
+
+                    </div>
+                    <div class="col-sm-10">
+                        <span asp-validation-for="ParentId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-weight-bold">
+                        <span class="text-danger">*&nbsp;</span><label asp-for="Name" class="control-label"></label>：
+                    </div>
+                    <div class="col-sm-10">
+                        <input asp-for="Name" class="form-control" />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2 text-right font-weight-bold">
+
+                    </div>
+                    <div class="col-sm-10">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-weight-bold">
+                        <label asp-for="Icon" class="control-label"></label>：
+                    </div>
+                    <div class="col-sm-10">
+                        <input asp-for="Icon" class="form-control" />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2 text-right font-weight-bold">
+
+                    </div>
+                    <div class="col-sm-10">
+                        <span asp-validation-for="Icon" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-weight-bold">
+                        <label asp-for="Page" class="control-label"></label>：
+                    </div>
+                    <div class="col-sm-10">
+                        @Html.DropDownListFor(m => m.Page, pages, new { Class = "form-control" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2 text-right font-weight-bold">
+
+                    </div>
+                    <div class="col-sm-10">
+                        <span asp-validation-for="Page" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2 text-right font-weight-bold">
+
+                    </div>
+                    <div class="col-sm-10">
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input type="checkbox" asp-for="Display" class="form-check-input" />
+                                <label asp-for="Display" class="form-check-label"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-weight-bold">
+                        <span class="text-danger">*&nbsp;</span><label asp-for="Postion" class="control-label"></label>：
+                    </div>
+                    <div class="col-sm-10">
+                        <input asp-for="Postion" class="form-control" />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-2 text-right font-weight-bold">
+
+                    </div>
+                    <div class="col-sm-10">
+                        <span asp-validation-for="Postion" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+        </form>
 	</div>
 	<div data-options="region:'south',border:false" style="text-align:right;padding:5px 5px 5px 5px;">
-		<a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)" onclick="javascript:submit1()" style="width:80px">确定</a>
+        <button class="btn btn-primary btn-sm" href="javascript:void(0)" onclick="javascript:submit1()" style="width:80px">确定</button>
 	</div>
 </div>
 
@@ -88,7 +136,7 @@
             $.ajax({
                 url: "/Function/Add",
                 type: "Post",
-                data: $("#Add").serialize(),
+                data: $("form").serialize(),
                 dataType: "json",
                 success: function (data) {
                     if (data == 1) {

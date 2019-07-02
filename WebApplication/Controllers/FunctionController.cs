@@ -219,7 +219,7 @@ namespace WebApplication.Controllers
             FunctionAddModel model = new FunctionAddModel();
             var dal = new FunctionDal();
             model.Functions = dal.QueryOrderByName();
-
+            model.Display = true;
             model.Pages = GetPages();
 
             return View(model);
