@@ -16,7 +16,7 @@
                                 <span class="text-danger">*&nbsp;</span><label asp-for="GrainId" class="control-label"></label>：
                             </div>
                             <div class="col-sm-8">
-                                <input asp-for="GrainId" class="form-control form-control-sm  is-invalid"/>
+                                <input asp-for="GrainId" class="form-control form-control-sm  is-invalid" />
                             </div>
                         </div>
                         <div class="row">
@@ -83,7 +83,7 @@
                                 <span asp-validation-for="GrainType2Id" class="text-danger"></span>
                             </div>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
                 <div class="row form-group">
                     <div class="col">
@@ -199,11 +199,12 @@
                         <div class="col-sm-4 font-weight-bold">
                             <label asp-for="GrainComment" class="control-label"></label>：
                         </div>
-                        <input asp-for="GrainComment" class="form-control form-control-sm" />
+                        @Html.TextAreaFor(o => o.GrainComment, new { Class = "easyui-texteditor", Style = "height:280px;" })
                         <span asp-validation-for="GrainComment" class="text-danger"></span>
                     </div>
                 </div>
             </div>
+
         }
     </div>
     <div data-options="region:'south',border:false" style="text-align:right;padding:5px 5px 5px 5px;">
