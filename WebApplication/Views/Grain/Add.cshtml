@@ -5,98 +5,209 @@
 }
 
 <div class="easyui-layout" data-options="fit:true">
-    <div data-options="region:'center'" style="padding:10px;">
+    <div data-options="region:'center'">
         @using (Html.BeginForm("Add", "Grain", FormMethod.Post, new { id = "Add", autocomplete = "off" }))
         {
-        <table width="100%" border="0" align="center" cellpadding="5" cellspacing="1">
-            <tr>
-                <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainId"></label>:</td>
-                <td align="left" bgcolor="#F6F6F6">
-                    <input asp-for="GrainId" class="easyui-textbox"/><button onclick="generateGuidCode();">=</button>
-                    <span asp-validation-for="GrainId"></span>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainName"></label>:</td>
-                <td align="left" bgcolor="#F6F6F6">
-                    <input asp-for="GrainName"  class="easyui-textbox"/>
-                    <span asp-validation-for="GrainName"></span>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainTypeId"></label>:</td>
-                <td align="left" bgcolor="#F6F6F6">
-                    @Html.DropDownListFor(o => o.GrainTypeId, Model.GrainTypes.Select(o => new SelectListItem() { Value = o.GrainTypeId.ToString(), Text = o.GrainTypeName }), new { Class = "easyui-combobox" })
-                    <span asp-validation-for="GrainTypeId"></span>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainType2Id"></label>:</td>
-                <td align="left" bgcolor="#F6F6F6">
-                    @Html.DropDownListFor(o => o.GrainType2Id, Model.GrainType2s.Select(o => new SelectListItem() { Value = o.GrainType2Id.ToString(), Text = o.GrainType2Name }), new { Class = "easyui-combobox" })
-                    <span asp-validation-for="GrainType2Id"></span>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainCode"></label>:</td>
-                <td align="left" bgcolor="#F6F6F6">
-                    <input asp-for="GrainCode"  class="easyui-textbox"/>
-                    <span asp-validation-for="GrainCode"></span>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainPinYin"></label>:</td>
-                <td align="left" bgcolor="#F6F6F6">
-                    <input asp-for="GrainPinYin"  class="easyui-textbox"/>
-                    <span asp-validation-for="GrainPinYin"></span>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainColor"></label>:</td>
-                <td align="left" bgcolor="#F6F6F6">
-                    <input asp-for="GrainColor"  class="easyui-textbox"/>
-                    <span asp-validation-for="GrainColor"></span>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainWeight"></label>:</td>
-                <td align="left" bgcolor="#F6F6F6">
-                    <input asp-for="GrainWeight"  class="easyui-textbox"/>
-                    <span asp-validation-for="GrainWeight"></span>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainUnit"></label>:</td>
-                <td align="left" bgcolor="#F6F6F6">
-                    <input asp-for="GrainUnit"  class="easyui-textbox"/>
-                    <span asp-validation-for="GrainUnit"></span>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainDescription"></label>:</td>
-                <td align="left" bgcolor="#F6F6F6">
-                    <input asp-for="GrainDescription"  class="easyui-textbox"/>
-                    <span asp-validation-for="GrainDescription"></span>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" bgcolor="#F6F6F6"><label asp-for="GrainComment"></label>:</td>
-                <td align="left" bgcolor="#F6F6F6">
-                    <input asp-for="GrainComment"  class="easyui-textbox"/>
-                    <span asp-validation-for="GrainComment"></span>
-                </td>
-            </tr>
-            <tr>
-                <td align="right" bgcolor="#F6F6F6"></td>
-                <td align="left" bgcolor="#F6F6F6">
-                    <span class="f12red">@ViewBag.Message</span>
-                </td>
-            </tr>
-        </table>
+            <div class="container-fluid" style="margin-top:30px;">
+                <div class="row form-group">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold">
+                                <span class="text-danger">*&nbsp;</span><label asp-for="GrainId" class="control-label"></label>：
+                            </div>
+                            <div class="col-sm-8">
+                                <input asp-for="GrainId" class="form-control form-control-sm  is-invalid"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold">
+
+                            </div>
+                            <div class="col-sm-8">
+                                <span asp-validation-for="GrainId" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold">
+                                <span class="text-danger">*&nbsp;</span><label asp-for="GrainName" class="control-label"></label>：
+                            </div>
+                            <div class="col-sm-8">
+                                <input asp-for="GrainName" class="form-control form-control-sm" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold">
+
+                            </div>
+                            <div class="col-sm-8">
+                                <span asp-validation-for="GrainName" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold">
+                                <label asp-for="GrainTypeId" class="control-label"></label>：
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.DropDownListFor(o => o.GrainTypeId, Model.GrainTypes.Select(o => new SelectListItem() { Value = o.GrainTypeId.ToString(), Text = o.GrainTypeName }), new { Class = "form-control form-control-sm" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold">
+
+                            </div>
+                            <div class="col-sm-8">
+                                <span asp-validation-for="GrainTypeId" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold">
+                                <label asp-for="GrainType2Id" class="control-label"></label>：
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.DropDownListFor(o => o.GrainType2Id, Model.GrainType2s.Select(o => new SelectListItem() { Value = o.GrainType2Id.ToString(), Text = o.GrainType2Name }), new { Class = "form-control form-control-sm" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold">
+
+                            </div>
+                            <div class="col-sm-8">
+                                <span asp-validation-for="GrainType2Id" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="row form-group">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold">
+                                <span class="text-danger">*&nbsp;</span><label asp-for="GrainCode" class="control-label"></label>：
+                            </div>
+                            <div class="col-sm-8 ">
+                                <input asp-for="GrainCode" class="form-control form-control-sm text-lowercase" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold">
+
+                            </div>
+                            <div class="col-sm-8">
+                                <span asp-validation-for="GrainCode" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold">
+                                <span class="text-danger">*&nbsp;</span><label asp-for="GrainPinYin" class="control-label"></label>：
+                            </div>
+                            <div class="col-sm-8 input-group input-group-sm">
+                                <input asp-for="GrainPinYin" class="form-control form-control-sm text-lowercase" />
+                                <div class="input-group-append">
+                                    <button class="btn btn-secondary" type="button" id="button-addon2">=</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold">
+
+                            </div>
+                            <div class="col-sm-8">
+                                <span asp-validation-for="GrainPinYin" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold">
+                                <label asp-for="GrainWeight" class="control-label"></label>：
+                            </div>
+                            <div class="col-sm-8">
+                                <input asp-for="GrainWeight" class="form-control form-control-sm" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold"></div>
+                            <div class="col-sm-8">
+                                <span asp-validation-for="GrainWeight" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold">
+                                <label asp-for="GrainUnit" class="control-label"></label>：
+                            </div>
+                            <div class="col-sm-8">
+                                <input asp-for="GrainUnit" class="form-control form-control-sm" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold"></div>
+                            <div class="col-sm-8">
+                                <span asp-validation-for="GrainUnit" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold">
+                                <label asp-for="GrainColor" class="control-label"></label>：
+                            </div>
+                            <div class="col-sm-8">
+                                <input asp-for="GrainColor" class="form-control form-control-sm" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold"></div>
+                            <div class="col-sm-8">
+                                <span asp-validation-for="GrainColor" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold">
+                                <label asp-for="GrainDescription" class="control-label"></label>：
+                            </div>
+                            <div class="col-sm-8">
+                                <input asp-for="GrainDescription" class="form-control form-control-sm" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-right font-weight-bold"></div>
+                            <div class="col-sm-8">
+                                <span asp-validation-for="GrainDescription" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col">
+                        <div class="col-sm-4 font-weight-bold">
+                            <label asp-for="GrainComment" class="control-label"></label>：
+                        </div>
+                        <input asp-for="GrainComment" class="form-control form-control-sm" />
+                        <span asp-validation-for="GrainComment" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
         }
     </div>
     <div data-options="region:'south',border:false" style="text-align:right;padding:5px 5px 5px 5px;">
-        <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)" onclick="javascript:submit1()" style="width:80px">确定</a>
+        <button class="btn btn-primary btn-sm" href="javascript:void(0)" onclick="javascript:submit1()" style="width:80px">确定</button>
     </div>
 </div>
 
@@ -138,3 +249,26 @@
     }
 
 </script>
+
+@*
+    <div class="col">
+    <div class="row">
+        <div class="col-sm-4 text-right font-weight-bold"></div>
+        <div class="col-sm-8"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 text-right font-weight-bold"></div>
+        <div class="col-sm-8"></div>
+    </div>
+</div>
+<div class="col">
+    <div class="row">
+        <div class="col-sm-4 text-right font-weight-bold"></div>
+        <div class="col-sm-8"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 text-right font-weight-bold"></div>
+        <div class="col-sm-8"></div>
+    </div>
+</div>
+    *@
