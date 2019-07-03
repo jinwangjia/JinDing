@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication.Models
 {
@@ -26,6 +27,7 @@ namespace WebApplication.Models
         /// <summary>
         /// 功能编号
         /// </summary>
+        [Required(ErrorMessage = "{0}不能为空")]
         public string FunctionId { get; set; }
         /// <summary>
         /// 链接
@@ -41,6 +43,7 @@ namespace WebApplication.Models
         /// 图标
         /// </summary>
         [DisplayName("图标")]
+        [Required(ErrorMessage = "{0}不能为空")]
         public string IconCls { get; set; }
         /// <summary>
         /// 未知
@@ -51,16 +54,19 @@ namespace WebApplication.Models
         /// 动作
         /// </summary>
         [DisplayName("动作")]
+        [Required(ErrorMessage = "{0}不能为空")]
         public string OnClick { get; set; }
         /// <summary>
         /// 名称
         /// </summary>
         [DisplayName("名称")]
+        [Required(ErrorMessage = "{0}不能为空")]
         public string CommandName { get; set; }
         /// <summary>
         /// 顺序
         /// </summary>
         [DisplayName("顺序")]
+        [Required(ErrorMessage = "{0}不能为空")]
         public int Index { get; set; }
         /// <summary>
         /// 位置
@@ -71,10 +77,12 @@ namespace WebApplication.Models
 
     public class CommandUpdateModel
     {
+        [Required(ErrorMessage = "{0}不能为空")]
         public string CommandId { get; set; }
         /// <summary>
         /// 功能编号
         /// </summary>
+        [Required(ErrorMessage = "{0}不能为空")]
         public string FunctionId { get; set; }
         /// <summary>
         /// 链接
@@ -90,6 +98,7 @@ namespace WebApplication.Models
         /// 图标
         /// </summary>
         [DisplayName("图标")]
+        [Required(ErrorMessage = "{0}不能为空")]
         public string IconCls { get; set; }
         /// <summary>
         /// 未知
@@ -100,16 +109,19 @@ namespace WebApplication.Models
         /// 动作
         /// </summary>
         [DisplayName("动作")]
+        [Required(ErrorMessage = "{0}不能为空")]
         public string OnClick { get; set; }
         /// <summary>
         /// 名称
         /// </summary>
+        [Required(ErrorMessage = "{0}不能为空")]
         [DisplayName("名称")]
         public string CommandName { get; set; }
         /// <summary>
         /// 顺序
         /// </summary>
         [DisplayName("顺序")]
+        [Required(ErrorMessage = "{0}不能为空")]
         public int Index { get; set; }
         /// <summary>
         /// 位置
