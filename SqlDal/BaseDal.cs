@@ -72,7 +72,7 @@ namespace SqlDal
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=.;Database=JinDing;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=.;Database=JinDing;Integrated Security=False;User ID=sa;Password=ct.123;");
             base.OnConfiguring(optionsBuilder);
         }
 
