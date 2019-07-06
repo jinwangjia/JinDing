@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Caching.Distributed;
 using Model;
 using SqlDal;
 using System;
@@ -12,6 +13,13 @@ namespace WebApplication.Controllers
 {
     public class FrameController : Controller
     {
+
+        public FrameController(IDistributedCache Cache)
+        {
+            //https://www.cnblogs.com/szlblog/p/9045209.html
+
+        }
+
         //当前用户
         public AdministratorDefinition CurrentAdmin
         {

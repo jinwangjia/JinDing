@@ -32,7 +32,16 @@ namespace WebApplication
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            services.AddDistributedRedisCache(options =>
+            {
+                //用于连接Redis的配置  Configuration.GetConnectionString("RedisConnectionString")读取配置信息的串
+                options.Configuration = "localhost";// Configuration.GetConnectionString("RedisConnectionString");
+                //Redis实例名RedisDistributedCache
+                //options.InstanceName = "RedisDistributedCache";
 
+            });
+
+            services.AddMvc();
             services.AddSession();
             services.AddAutoMapper();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
