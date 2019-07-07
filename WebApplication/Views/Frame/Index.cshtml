@@ -17,13 +17,13 @@
     <meta name="renderer" content="webkit" />
     <meta name="viewport" content="width=device-width" />
     <script src="~/js/jquery-1.4.4.js"></script>
-    @*<script src="~/easyui/jquery.easyui.min.js"></script>
-    <link href="~/themes/base/easyui.css" rel="stylesheet" />*@
+    <script src="~/easyui/jquery.easyui.min.js"></script>
+    <link href="~/themes/base/easyui.css" rel="stylesheet" />
 
-    <link href="~/jquery-easyui-1.7.0/themes/icon.css" rel="stylesheet" />
+    @*<link href="~/jquery-easyui-1.7.0/themes/icon.css" rel="stylesheet" />
     <link href="~/jquery-easyui-1.7.0/themes/default/easyui.css" rel="stylesheet" />
     <script src="~/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
-    <script src="~/jquery-easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
+    <script src="~/jquery-easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>*@
 
     <link href="~/themes/skin-@(themes).css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
@@ -60,33 +60,32 @@
     </div>
 
 
-    <div id="west" data-options="region:'west',split:true,title:'菜单',collapsible:false" style="width: 220px; height: 100%;  overflow: auto; border-bottom:0px;">
+    <div id="west" data-options="region:'west',split:true,title:'菜单',collapsible:false" style="width: 220px; height: 100%;  overflow: auto; border-bottom:0px;background:#f9fafc;">
 
-        <div id="RightAccordion" class="easyui-accordion" data-options="fit:true,border:false">
-            <div class="easyui-accordion" style="width:500px;height:300px;">
-                <div title="菜单" data-options="iconCls:'fa fa-search'" style="padding:10px;">
-                    <ul class="easyui-tree">
-                        @{
-                            var list1 = Model.FunctionList.Where(o => o.ParentId == "0").OrderBy(o => o.Postion).ToList();
-                            foreach (var p1 in list1)
-                            {
-                                <li>
-                                    <span>@(p1.Name)</span>
-                                    <ul>
-                                        @{
-                                            var list2 = Model.FunctionList.Where(o => o.ParentId == p1.FunctionId).OrderBy(o => o.Postion).ToList();
-                                            foreach (var p2 in list2)
-                                            {
-                                                <li><a style="color:#000" href="javascript:addTab('@(p2.Name)','@(p2.Page)','fa fa-table')">@(p2.Name)</a></li>
-                                            }
+        <div id="RightAccordion" class="easyui-accordion" data-options="border:false">
+            <div title="菜单" data-options="iconCls:'fa fa-search'" style="padding:10px;">
+                <ul class="easyui-tree">
+                    @{
+                        var list1 = Model.FunctionList.Where(o => o.ParentId == "0").OrderBy(o => o.Postion).ToList();
+                        foreach (var p1 in list1)
+                        {
+                            <li>
+                                <span>@(p1.Name)</span>
+                                <ul>
+                                    @{
+                                        var list2 = Model.FunctionList.Where(o => o.ParentId == p1.FunctionId).OrderBy(o => o.Postion).ToList();
+                                        foreach (var p2 in list2)
+                                        {
+                                            <li><a style="color:#000" href="javascript:addTab('@(p2.Name)','@(p2.Page)','fa fa-table')">@(p2.Name)</a></li>
                                         }
-                                    </ul>
-                                </li>
-                            }
+                                    }
+                                </ul>
+                            </li>
                         }
-                    </ul>
-                </div>
+                    }
+                </ul>
             </div>
+
         </div>
         <div id="RightTree" class="easyui-tree"></div>
 
