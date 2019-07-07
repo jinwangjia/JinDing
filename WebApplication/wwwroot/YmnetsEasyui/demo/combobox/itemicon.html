@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Show Item Icon in ComboBox - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="../../themes/base/easyui.css">
+	
+	<link rel="stylesheet" type="text/css" href="../../content/Site.css">
+	<script type="text/javascript" src="../../jquery.min.js"></script>
+	<script type="text/javascript" src="../../jquery.easyui.min.js"></script>
+<link href="../../content/fontawesome/css/font-awesome.min.css" rel="stylesheet" /></head>
+<body>
+	<h2>Show Item Icon in ComboBox</h2>
+	<p>This example shows how to display item icon in ComboBox.</p>
+	<div style="margin:20px 0"></div>
+	<div class="easyui-panel" style="width:100%;max-width:400px;padding:30px 60px;">
+		<div style="margin-bottom:20px">
+			<input class="easyui-combobox" style="width:100%;" data-options="
+					showItemIcon: true,
+					data: [
+						{value:'add',text:'Add',iconCls:'fa fa-plus'},
+						{value:'del',text:'Delete',iconCls:'fa fa-trash'},
+						{value:'save',text:'Save',iconCls:'fa fa-save',selected:true},
+						{value:'cancel',text:'Cancel',iconCls:'fa fa-reply'},
+						{value:'undo',text:'Undo',iconCls:'fa fa-reply'},
+						{value:'redo',text:'Redo',iconCls:'fa fa-share'}
+					],
+					editable: false,
+					panelHeight: 'auto',
+					label: 'Perform Action:',
+					labelPosition: 'top'
+					">
+		</div>
+	</div>
+</body>

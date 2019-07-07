@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Toolbar and Buttons - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="../../themes/base/easyui.css">
+	
+	<link rel="stylesheet" type="text/css" href="../../content/Site.css">
+	<script type="text/javascript" src="../../jquery.min.js"></script>
+	<script type="text/javascript" src="../../jquery.easyui.min.js"></script>
+<link href="../../content/fontawesome/css/font-awesome.min.css" rel="stylesheet" /></head>
+<body>
+	<h2>Toolbar and Buttons</h2>
+	<p>The toolbar and buttons can be added to dialog.</p>
+	<div style="margin:20px 0;">
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#dlg').dialog('open')">Open</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#dlg').dialog('close')">Close</a>
+	</div>
+	<div id="dlg" class="easyui-dialog" title="Toolbar and Buttons" style="width:400px;height:200px;padding:10px"
+			data-options="
+				iconCls: 'fa fa-save',
+				toolbar: [{
+					text:'Add',
+					iconCls:'fa fa-plus',
+					handler:function(){
+						alert('add')
+					}
+				},'-',{
+					text:'Save',
+					iconCls:'fa fa-save',
+					handler:function(){
+						alert('save')
+					}
+				}],
+				buttons: [{
+					text:'Ok',
+					iconCls:'fa fa-arrow-right',
+					handler:function(){
+						alert('ok');
+					}
+				},{
+					text:'Cancel',
+					handler:function(){
+						alert('cancel');;
+					}
+				}]
+			">
+		The dialog content.
+	</div>
+	
+</body>
+</html>
