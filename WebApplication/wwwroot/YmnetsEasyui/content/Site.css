@@ -174,7 +174,7 @@ textarea{border:1px #ccc solid;}
 
 
 
-.field-validation-error{background:url(./Images/icons.png) no-repeat -360px -42px;padding-left:18px; color: #ff0000; font-size:13px;display:block;width:100%;float:left;margin:3px;}
+.field-validation-error{background:url(./Images/icons.png) no-repeat -360px -42px;padding:0px 20px 0px 18px; color: #ff0000; font-size:13px;display:block;width:100%;float:left;position:absolute;}
 .field-validation-error span {
     background-color:#fff;
     display:block;
@@ -321,3 +321,13 @@ span.inter-ps span{ display:inline-block; padding-right:5px}
 
 /*时间控件-年份输入框*/
 input.calendar-menu-year{width:40px;}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.control-label:before {
+    content: '*';
+    color: red;
+    font-size: 12px;
+}
