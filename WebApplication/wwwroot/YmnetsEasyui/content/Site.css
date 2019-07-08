@@ -174,10 +174,13 @@ textarea{border:1px #ccc solid;}
 
 
 
-.field-validation-error{background:url(Images/icons.png) no-repeat 0px -271px;padding-left:18px; margin-bottom:-3px;color: #ff0000; font-size:13px;display:block  }
+.field-validation-error{background:url(./Images/icons.png) no-repeat -360px -42px;padding-left:18px; color: #ff0000; font-size:13px;display:block;}
     
 .field-validation-valid{display: none;}
-input.input-validation-error,select.input-validation-error,textarea.input-validation-error{border: 1px solid #ff0000;background-color: #ffeeee;}
+.field-validation-info {
+    height: 25px;
+}
+input.input-validation-error,select.input-validation-error,textarea.input-validation-error{border: 1px solid #ff0000;}
 .validation-summary-errors{font-weight: bold;color: #ff0000;}
 .validation-summary-valid{display: none;}
 

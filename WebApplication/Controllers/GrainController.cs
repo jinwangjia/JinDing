@@ -121,7 +121,7 @@ namespace WebApplication.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { state = "error", data = ex.Message });
+               return Json(new { state = "error", data = ex.Message });
             }
 
         }

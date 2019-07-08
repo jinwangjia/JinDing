@@ -291,9 +291,9 @@ $.extend({
 });
 //替换字符串
 /* 
- * 功    能：替换字符串中某些字符
- * 参    数：sInput-原始字符串  sChar-要被替换的子串 sReplaceChar-被替换的新串
- * 返 回 值：被替换后的字符串
+ * 功    能替换字符串中某些字符
+ * 参    数sInput-原始字符串  sChar-要被替换的子串 sReplaceChar-被替换的新串
+ * 返 回 值被替换后的字符串
  */
 $.extend({
     ReplaceStrAll: function (sInput, sChar, sReplaceChar) {
@@ -307,9 +307,9 @@ $.extend({
 });
 
 /*
- * 功    能：替换字符串中某些字符（只能是第一个被替换掉）
- * 参    数：sInput-原始字符串  sChar-要被替换的子串 sReplaceChar-被替换的新串
- * 返 回 值：被替换后的字符串
+ * 功    能替换字符串中某些字符（只能是第一个被替换掉）
+ * 参    数sInput-原始字符串  sChar-要被替换的子串 sReplaceChar-被替换的新串
+ * 返 回 值被替换后的字符串
  */
 $.extend({
     ReplaceOne: function (sInput, sChar, sReplaceChar) {
