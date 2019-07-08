@@ -20,7 +20,7 @@
                         <span class="text-danger">*&nbsp;</span><label asp-for="EmployeeGroupName" class="control-label"></label>：
                     </div>
                     <div class="col-sm-10">
-                        <input asp-for="EmployeeGroupName" class="form-control" />
+                        <input asp-for="EmployeeGroupName" class="form-control form-control-lg" />
                     </div>
                 </div>
                 <div class="row form-group">
@@ -97,7 +97,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2 text-right font-weight-bold">
-                        <span class="text-danger">*&nbsp;</span><label asp-for="LeftTime" class="control-label"></label>：
+                        <span class="text-danger">*&nbsp;</span><label asp-for="OtherEmployeesId2" class="control-label"></label>：
                     </div>
                     <div class="col-sm-10">
                         @Html.DropDownListFor(m => m.OtherEmployeesId2, administratorList, new { Class = "form-control" })
