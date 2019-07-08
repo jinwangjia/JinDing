@@ -174,9 +174,17 @@ textarea{border:1px #ccc solid;}
 
 
 
-.field-validation-error{background:url(./Images/icons.png) no-repeat -360px -42px;padding-left:18px; color: #ff0000; font-size:13px;display:block;}
-    
-.field-validation-valid{display: none;}
+.field-validation-error{background:url(./Images/icons.png) no-repeat -360px -42px;padding-left:18px; color: #ff0000; font-size:13px;display:block;width:100%;float:left;margin:3px;}
+.field-validation-error span {
+    background-color:#fff;
+    display:block;
+    float:left;
+    padding-left:5px;
+    width:100%;
+}
+.field-validation-valid {
+    display: none;
+}
 .field-validation-info {
     height: 25px;
 }
