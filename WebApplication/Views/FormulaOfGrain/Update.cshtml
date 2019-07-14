@@ -14,7 +14,7 @@
                 <div class="container-fluid" style="padding-top:30px;">
                     <div class="row">
                         <div class="col-sm-2 text-right font-weight-bold">
-                            <span class="text-danger">*&nbsp;</span><label asp-for="GrainName" class="control-label"></label>：
+                            <label asp-for="GrainName" class="control-label control-required"></label>：
                         </div>
                         <div class="col-sm-10">
                             <input asp-for="GrainName" class="form-control form-control-sm" readonly/>
@@ -30,7 +30,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-2 text-right font-weight-bold">
-                            <span class="text-danger">*&nbsp;</span><label asp-for="Amount" class="control-label"></label>：
+                            <label asp-for="Amount" class="control-label control-required"></label>：
                         </div>
                         <div class="col-sm-10">
                             <input asp-for="Amount" class="form-control form-control-sm" />

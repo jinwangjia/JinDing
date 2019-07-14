@@ -19,7 +19,7 @@
             <div class="container-fluid" style="padding-top:30px;">
                 <div class="row">
                     <div class="col-sm-2 text-right font-weight-bold">
-                        <span class="text-danger">*&nbsp;</span><label asp-for="RoleId" class="control-label"></label>：
+                        <label asp-for="RoleId" class="control-label control-required"></label>：
                     </div>
                     <div class="col-sm-10">
                         @Html.DropDownListFor(m => m.RoleId, roleList,new { Class="form-control form-control-sm"})
@@ -35,7 +35,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2 text-right font-weight-bold">
-                        <span class="text-danger">*&nbsp;</span><label asp-for="Name" class="control-label"></label>：
+                        <label asp-for="Name" class="control-label control-required"></label>：
                     </div>
                     <div class="col-sm-10">
                         <input asp-for="Name" class="form-control form-control-sm" />
@@ -51,7 +51,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2 text-right font-weight-bold">
-                        <span class="text-danger">*&nbsp;</span><label asp-for="Accounts" class="control-label"></label><span>：</span>
+                        <label asp-for="Accounts" class="control-label control-required"></label><span>：</span>
                     </div>
                     <div class="col-sm-10">
                         <input asp-for="Accounts" class="form-control form-control-sm" />
@@ -67,7 +67,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2 text-right font-weight-bold">
-                        <span class="text-danger">*&nbsp;</span><label asp-for="PassWord" class="control-label"></label>：
+                        <label asp-for="PassWord" class="control-label control-required"></label>：
                     </div>
                     <div class="col-sm-10">
                         <input asp-for="PassWord" class="form-control form-control-sm" />

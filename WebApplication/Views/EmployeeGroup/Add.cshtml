@@ -17,7 +17,7 @@
             <div class="container-fluid" style="padding-top:30px;">
                 <div class="row">
                     <div class="col-sm-2 text-right font-weight-bold">
-                        <span class="text-danger">*&nbsp;</span><label asp-for="EmployeeGroupName" class="control-label"></label>：
+                        <label asp-for="EmployeeGroupName" class="control-label control-required"></label>：
                     </div>
                     <div class="col-sm-10">
                         <input asp-for="EmployeeGroupName" class="form-control form-control-sm" />
@@ -33,7 +33,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2 text-right font-weight-bold">
-                        <span class="text-danger">*&nbsp;</span><label asp-for="LeftTime" class="control-label"></label>：
+                        <label asp-for="LeftTime" class="control-label control-required"></label>：
                     </div>
                     <div class="col-sm-10">
                         @Html.DropDownListFor(m => m.LeftTime, timeList, new { Class = "form-control  form-control-sm" })
@@ -49,7 +49,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2 text-right font-weight-bold">
-                        <span class="text-danger">*&nbsp;</span><label asp-for="RightTime" class="control-label"></label>：
+                        <label asp-for="RightTime" class="control-label control-required"></label>：
                     </div>
                     <div class="col-sm-10">
                         @Html.DropDownListFor(m => m.RightTime, timeList, new { Class = "form-control  form-control-sm" })
@@ -65,7 +65,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2 text-right font-weight-bold">
-                        <span class="text-danger">*&nbsp;</span><label asp-for="MonitorId" class="control-label"></label>：
+                        <label asp-for="MonitorId" class="control-label control-required"></label>：
                     </div>
                     <div class="col-sm-10">
                         @Html.DropDownListFor(m => m.MonitorId, administratorList, new { Class = "form-control  form-control-sm" })
@@ -81,7 +81,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2 text-right font-weight-bold">
-                        <span class="text-danger">*&nbsp;</span><label asp-for="OtherEmployeesId1" class="control-label"></label>：
+                        <label asp-for="OtherEmployeesId1" class="control-label control-required"></label>：
                     </div>
                     <div class="col-sm-10">
                         @Html.DropDownListFor(m => m.OtherEmployeesId1, administratorList, new { Class = "form-control  form-control-sm" })
@@ -97,7 +97,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2 text-right font-weight-bold">
-                        <span class="text-danger">*&nbsp;</span><label asp-for="OtherEmployeesId2" class="control-label"></label>：
+                        <label asp-for="OtherEmployeesId2" class="control-label"></label>：
                     </div>
                     <div class="col-sm-10">
                         @Html.DropDownListFor(m => m.OtherEmployeesId2, administratorList, new { Class = "form-control  form-control-sm" })

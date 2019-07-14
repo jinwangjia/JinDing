@@ -326,8 +326,8 @@ input.calendar-menu-year{width:40px;}
     margin-bottom: 20px;
 }
 
-.control-label:before {
-    content: '*';
+.control-required:before {
+    content: '* ';
     color: red;
     font-size: 12px;
 }

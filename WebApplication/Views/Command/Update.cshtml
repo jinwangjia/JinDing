@@ -24,7 +24,7 @@
             <div class="container-fluid" style="padding-top:30px;">
                 <div class="row">
                     <div class="col-sm-2 text-right font-weight-bold">
-                        <span class="text-danger">*&nbsp;</span><label asp-for="CommandName" class="control-label"></label>：
+                        <label asp-for="CommandName" class="control-label control-required"></label>：
                     </div>
                     <div class="col-sm-10">
                         <input asp-for="CommandName" class="form-control form-control-sm" />
@@ -40,7 +40,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2 text-right font-weight-bold">
-                        <span class="text-danger">*&nbsp;</span><label asp-for="IconCls" class="control-label"></label>：
+                        <label asp-for="IconCls" class="control-label control-required"></label>：
                     </div>
                     <div class="col-sm-10">
                         @Html.DropDownListFor(m => m.IconCls, iconList, new { Class = "form-control  form-control-sm" })
@@ -56,7 +56,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2 text-right font-weight-bold">
-                        <span class="text-danger">*&nbsp;</span><label asp-for="OnClick" class="control-label"></label>：
+                        <label asp-for="OnClick" class="control-label control-required"></label>：
                     </div>
                     <div class="col-sm-10">
                         <input asp-for="OnClick" class="form-control form-control-sm" />
@@ -72,7 +72,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2 text-right font-weight-bold">
-                        <span class="text-danger">*&nbsp;</span><label asp-for="Index" class="control-label"></label>：
+                        <label asp-for="Index" class="control-label control-required"></label>：
                     </div>
                     <div class="col-sm-10">
                         <input asp-for="Index" class="form-control form-control-sm" />
