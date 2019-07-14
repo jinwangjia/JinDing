@@ -369,7 +369,7 @@
                                             <div class="tile-content-wrapper">
                                                 <i class="glyph-icon fa fa-users"></i>
                                                 <div class="tile-content">
-@*                                                    <span>￥</span>*@
+                                                    @*                                                    <span>￥</span>*@
                                                     @(Model.UserCount)
                                                 </div>
                                                 <small>
@@ -386,7 +386,7 @@
                                             <div class="tile-content-wrapper">
                                                 <i class="glyph-icon fa fa-history fa-5x"></i>
                                                 <div class="tile-content">
-                                                   @* <span>+</span>*@
+                                                    @* <span>+</span>*@
                                                     @(Model.DeviceCount)<span>台</span>
                                                 </div>
                                                 <small>
@@ -435,11 +435,10 @@
                     </div>
                 </div>
 
-
                 <div id="noticePart" class="easyui-draggable" data-options="handle:'#noticeTitle'">
                     <div id="noticeTitle" class="panel-header" style="border: 0">
                         <div class="panel-title" style="">
-                            <span class="fa fa-bullhorn"></span>&nbsp;&nbsp;今日产量
+                            <span class="fa fa-bullhorn"></span>&nbsp;&nbsp;当月产量
                         </div>
                         <div class="panel-tool">
                             <a href="javascript:promptValue('noticePart')" class="panel-tool-max"></a>
@@ -447,24 +446,141 @@
                         </div>
                     </div>
                     <div id="noticePartContent" class="panel-body ddcontent" style="border: 0">
-                        <table style="width:100%">
-                            <tbody>
-                                <tr style="height:33px;line-height:33px; padding:5px;">
-                                    <td>&nbsp;&nbsp;&nbsp;[大猪料]&nbsp;</td>
-                                    <td class="color-black" style="width:140px">[99千克]</td>
-                                </tr>
-                                <tr style="height:33px;line-height:33px; padding:5px;">
-                                    <td>&nbsp;&nbsp;&nbsp;[小猪料]&nbsp;</td>
-                                    <td class="color-black" style="width:140px">[22千克]</td>
-                                </tr>
-                                <tr style="height:33px;line-height:33px; padding:5px;">
-                                    <td>&nbsp;&nbsp;&nbsp;[战斗鸡料]&nbsp;</td>
-                                    <td class="color-black" style="width:140px">[100千克]</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div id="container" style="height: 700px;width:1000px;"></div>
+                        <script type="text/javascript" src="https://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+                        <script type="text/javascript">
+                            var dom = document.getElementById("container");
+                            var myChart = echarts.init(dom);
+                            var app = {};
+                            option = null;
+                            var dataAxis = ['饲料a', '饲料b', '饲料c', '饲料d', '饲料e', '饲料f', '饲料g', '饲料h', '饲料i', '饲料j', '饲料k', '饲料l'];
+                            var data = [220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90, 149];
+                            var yMax = 500;
+                            var dataShadow = [];
+
+                            for (var i = 0; i < data.length; i++) {
+                                dataShadow.push(yMax);
+                            }
+
+                            option = {
+                                title: {
+                                    text: '按饲料名称',
+                                    subtext: '（吨）'
+                                },
+                                xAxis: {
+                                    data: dataAxis,
+                                    axisLabel: {
+                                        inside: true,
+                                        textStyle: {
+                                            color: '#fff'
+                                        }
+                                    },
+                                    axisTick: {
+                                        show: false
+                                    },
+                                    axisLine: {
+                                        show: false
+                                    },
+                                    z: 10
+                                },
+                                yAxis: {
+                                    axisLine: {
+                                        show: false
+                                    },
+                                    axisTick: {
+                                        show: false
+                                    },
+                                    axisLabel: {
+                                        textStyle: {
+                                            color: '#999'
+                                        }
+                                    }
+                                },
+                                dataZoom: [
+                                    {
+                                        type: 'inside'
+                                    }
+                                ],
+                                series: [
+                                    { // For shadow
+                                        type: 'bar',
+                                        itemStyle: {
+                                            normal: { color: 'rgba(0,0,0,0.05)' }
+                                        },
+                                        barGap: '-100%',
+                                        barCategoryGap: '40%',
+                                        data: dataShadow,
+                                        animation: false
+                                    },
+                                    {
+                                        type: 'bar',
+                                        itemStyle: {
+                                            normal: {
+                                                color: new echarts.graphic.LinearGradient(
+                                                    0, 0, 0, 1,
+                                                    [
+                                                        { offset: 0, color: '#83bff6' },
+                                                        { offset: 0.5, color: '#188df0' },
+                                                        { offset: 1, color: '#188df0' }
+                                                    ]
+                                                )
+                                            },
+                                            emphasis: {
+                                                color: new echarts.graphic.LinearGradient(
+                                                    0, 0, 0, 1,
+                                                    [
+                                                        { offset: 0, color: '#2378f7' },
+                                                        { offset: 0.7, color: '#2378f7' },
+                                                        { offset: 1, color: '#83bff6' }
+                                                    ]
+                                                )
+                                            }
+                                        },
+                                        data: data
+                                    }
+                                ]
+                            };
+
+
+                            if (option && typeof option === "object") {
+                                myChart.setOption(option, true);
+                            }
+                        </script>
+
                     </div>
                 </div>
+
+
+
+                @*<div id="noticePart" class="easyui-draggable" data-options="handle:'#noticeTitle'">
+            <div id="noticeTitle" class="panel-header" style="border: 0">
+                <div class="panel-title" style="">
+                    <span class="fa fa-bullhorn"></span>&nbsp;&nbsp;今日产量
+                </div>
+                <div class="panel-tool">
+                    <a href="javascript:promptValue('noticePart')" class="panel-tool-max"></a>
+                    <a href="javascript:void(0)" class="panel-tool-close"></a>
+                </div>
+            </div>
+            <div id="noticePartContent" class="panel-body ddcontent" style="border: 0">
+                <table style="width:100%">
+                    <tbody>
+                        <tr style="height:33px;line-height:33px; padding:5px;">
+                            <td>&nbsp;&nbsp;&nbsp;[大猪料]&nbsp;</td>
+                            <td class="color-black" style="width:140px">[99千克]</td>
+                        </tr>
+                        <tr style="height:33px;line-height:33px; padding:5px;">
+                            <td>&nbsp;&nbsp;&nbsp;[小猪料]&nbsp;</td>
+                            <td class="color-black" style="width:140px">[22千克]</td>
+                        </tr>
+                        <tr style="height:33px;line-height:33px; padding:5px;">
+                            <td>&nbsp;&nbsp;&nbsp;[战斗鸡料]&nbsp;</td>
+                            <td class="color-black" style="width:140px">[100千克]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>*@
                 <div id="myJobPart" class="easyui-draggable" data-options="handle:'#title5'">
 
                 </div>
@@ -480,11 +596,11 @@
                         SetWebpartLayout();
                         $('#List').datagrid('resize', {
 
-                    }).datagrid('resize', {
-                        width: $(window).width / 2 - 40
+                        }).datagrid('resize', {
+                            width: $(window).width / 2 - 40
 
+                        });
                     });
-                });
                 </script>
 
             </div>
