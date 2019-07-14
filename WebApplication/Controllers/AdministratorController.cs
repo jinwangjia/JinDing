@@ -82,7 +82,7 @@ namespace WebApplication.Controllers
 
                 var p = new AdministratorDefinition()
                 {
-                    AdministratorId = Guid.NewGuid().ToString(),
+                    AdministratorId = Guid.NewGuid().ToString("N"),
                     SysAdmin = false,
                     Name = model.Name,
                     PassWord = helper.Encrypt(model.PassWord.Trim()),
@@ -122,7 +122,7 @@ namespace WebApplication.Controllers
                 CryptoHelper helper = new CryptoHelper();
                 var p = new AdministratorDefinition()
                 {
-                    AdministratorId = Guid.NewGuid().ToString(),
+                    AdministratorId = Guid.NewGuid().ToString("N"),
                     SysAdmin = true,
                     Name = model.Name,
                     PassWord = helper.Encrypt(model.PassWord.Trim()),

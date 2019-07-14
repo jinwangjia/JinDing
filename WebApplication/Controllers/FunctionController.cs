@@ -230,7 +230,7 @@ namespace WebApplication.Controllers
         {
             var dal = new FunctionDal();
             FunctionDefinition function = new FunctionDefinition();
-            function.FunctionId = Guid.NewGuid().ToString();
+            function.FunctionId = Guid.NewGuid().ToString("N");
             function.ParentId = model.ParentId;
             function.Name = model.Name;
             function.Icon = model.Icon;

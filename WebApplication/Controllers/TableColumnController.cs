@@ -104,7 +104,7 @@ namespace WebApplication.Controllers
                     Align = model.Align,
                     Index = model.Index,
                     Name = model.Name,
-                    TableColumnId = Guid.NewGuid().ToString(),
+                    TableColumnId = Guid.NewGuid().ToString("N"),
                     Visible = model.Visible,
                     Width = model.Width,
                 };

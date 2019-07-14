@@ -7,15 +7,15 @@ namespace SqlDal
     {
         public DbSet<ConfigDefinition> Config { get; set; }
         /// <summary>
-        /// 角色功能对照表
+        /// 角色功能对照
         /// </summary>
         public DbSet<RoleAndFunctionDefinition> RoleAndFunction { get; set; }
         /// <summary>
-        /// 功能表
+        /// 功能
         /// </summary>
         public DbSet<FunctionDefinition> Function { get; set; }
         /// <summary>
-        /// 角色表
+        /// 角色
         /// </summary>
         public DbSet<RoleDefinition> Role { get; set; }
 
@@ -45,7 +45,7 @@ namespace SqlDal
         /// </summary>
         public DbSet<DataChangeLogDefinition> DataChangeLog { get; set; }
         /// <summary>
-        /// 设备表
+        /// 设备
         /// </summary>
         public DbSet<DeviceDefinition> Device { get; set; }
         /// <summary>
@@ -66,9 +66,13 @@ namespace SqlDal
         public DbSet<GrainTypeDefinition> GrainType { get; set; }
         public DbSet<GrainType2Definition> GrainType2 { get; set; }
         /// <summary>
-        /// 配方之物料表
+        /// 配方之物料
         /// </summary>
         public DbSet<FormulaOfGrainDefinition> FormulaOfGrain { get; set; }
+        /// <summary>
+        /// 工单
+        /// </summary>
+        public DbSet<ZkGetOrderDefinition> ZkGetOrder { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

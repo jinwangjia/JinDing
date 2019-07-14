@@ -42,7 +42,7 @@ namespace WebApplication.Controllers
             {
                 var p = new CommandDefinition()
                 {
-                    CommandId = Guid.NewGuid().ToString(),
+                    CommandId = Guid.NewGuid().ToString("N"),
                     FunctionId = model.FunctionId,
                     Href = model.Href,
                     Class = model.Class,

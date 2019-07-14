@@ -102,7 +102,7 @@ namespace WebApplication.Models
         {
             CreateMap<FormulaAddModel, FormulaDefinition>().BeforeMap((dto, p) =>
             {
-                p.FormulaId = Guid.NewGuid().ToString();
+                p.FormulaId = Guid.NewGuid().ToString("N");
                 p.CreateDateTime = DateTime.Now;
                 p.UpdateDateTime = DateTime.Now;
             });

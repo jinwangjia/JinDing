@@ -147,7 +147,7 @@ namespace WebApplication.Models
         {
             CreateMap<GranariesAddModel, GranariesDefinition>().BeforeMap((dto, p) =>
             {
-                p.GranariesId = Guid.NewGuid().ToString();
+                p.GranariesId = Guid.NewGuid().ToString("N");
             });
 
             CreateMap<GranariesDefinition, GranariesUpdateModel>();

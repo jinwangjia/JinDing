@@ -43,7 +43,7 @@ namespace WebApplication.Controllers
             {
                 var p = new RoleDefinition()
                 {
-                    RoleId= Guid.NewGuid().ToString(),
+                    RoleId= Guid.NewGuid().ToString("N"),
                     Name=model.Name,
                 };
                 RoleDal.Add(p);

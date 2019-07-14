@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using AutoMapper;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,17 +30,20 @@ namespace WebApplication.Models
 
     public class ZkGetOrderAddModel
     {
+        public IList<FormulaDefinition> FormulaList { get; set; }
+
         /// <summary>
         /// 批次号
         /// </summary>
         [DisplayName("批次号")]
         [Required(ErrorMessage = "{0}不能为空")]
+        [Range(1, 10000, ErrorMessage = "{0}的范围是{1}到{2}")]
         public int Batch { get; set; }
         /// <summary>
         /// 是否为公共配方
         /// </summary>
         [DisplayName("是否为公共配方")]
-        [Required(ErrorMessage = "{0}不能为空")]
+        //[Required(ErrorMessage = "{0}不能为空")]
         public bool IsPublic { get; set; }
         /// <summary>
         /// 配方标示
@@ -51,7 +55,7 @@ namespace WebApplication.Models
         /// 配方编码
         /// </summary>
         [DisplayName("配方编码")]
-        [Required(ErrorMessage = "{0}不能为空")]
+        //[Required(ErrorMessage = "{0}不能为空")]
         public string FormulaCode { get; set; }
         /// <summary>
         /// 工单开始日期
@@ -81,6 +85,8 @@ namespace WebApplication.Models
 
     public class ZkGetOrderUpdateModel
     {
+        public IList<FormulaDefinition> FormulaList { get; set; }
+
         /// <summary>
         /// 工单号
         /// </summary>
@@ -92,12 +98,13 @@ namespace WebApplication.Models
         /// </summary>
         [DisplayName("批次号")]
         [Required(ErrorMessage = "{0}不能为空")]
+        [Range(1, 10000, ErrorMessage = "{0}的范围是{1}到{2}")]
         public int Batch { get; set; }
         /// <summary>
         /// 是否为公共配方
         /// </summary>
         [DisplayName("是否为公共配方")]
-        [Required(ErrorMessage = "{0}不能为空")]
+        //[Required(ErrorMessage = "{0}不能为空")]
         public bool IsPublic { get; set; }
         /// <summary>
         /// 配方标示
@@ -109,7 +116,7 @@ namespace WebApplication.Models
         /// 配方编码
         /// </summary>
         [DisplayName("配方编码")]
-        [Required(ErrorMessage = "{0}不能为空")]
+        //[Required(ErrorMessage = "{0}不能为空")]
         public string FormulaCode { get; set; }
         /// <summary>
         /// 工单开始日期
@@ -136,4 +143,20 @@ namespace WebApplication.Models
         [Required(ErrorMessage = "{0}不能为空")]
         public int OrderType { get; set; }
     }
+
+
+    public class ZkGetOrderProfile : Profile, IProfile
+    {
+        public ZkGetOrderProfile()
+        {
+            CreateMap<ZkGetOrderAddModel, ZkGetOrderDefinition>().BeforeMap((dto, p) =>
+            {
+                p.ZkGetOrderId = Guid.NewGuid().ToString("N");
+            });
+            CreateMap<ZkGetOrderDefinition, ZkGetOrderUpdateModel>();
+            CreateMap<ZkGetOrderUpdateModel, ZkGetOrderDefinition>();
+            CreateMap<ZkGetOrderDefinition, ZkGetOrderJsonIndexModel>();
+        }
+    }
+
 }

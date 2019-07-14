@@ -1,34 +1,176 @@
 ﻿@model WebApplication.Models.ZkGetOrderAddModel
 
 @{
-    Layout = null;
+    var orderTypeList = new List<SelectListItem>();
+    orderTypeList.Add(new SelectListItem() { Value = "1", Text = "本地自建" });
+    orderTypeList.Add(new SelectListItem() { Value = "2", Text = "ERP同步" });
 }
 
-<!DOCTYPE html>
+<div class="easyui-layout" data-options="fit:true" style="background-color:#f5f5f5;">
+    <div data-options="region:'center'">
+        <form>
+            <div class="container-fluid" style="margin-top:30px;">
+                <div class="row form-group">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-sm-1 text-right font-weight-bold">
+                                <label asp-for="FormulaId" class="control-label control-required"></label>
+                            </div>
+                            <div class="col-sm-11">
+                                @Html.DropDownListFor(o => o.FormulaId, Model.FormulaList.Select(o => new SelectListItem() { Value = o.FormulaId, Text = o.FormulaName }), new { Class = "form-control form-control-sm" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 text-right font-weight-bold">
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Add</title>
-</head>
-<body>
+                            </div>
+                            <div class="col-sm-10">
+                                <span asp-validation-for="FormulaId"></span>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="row form-group">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-sm-2 text-right font-weight-bold">
+                                <label asp-for="Weight" class="control-label control-required"></label>
+                            </div>
+                            <div class="col-sm-10 ">
+                                <input asp-for="Weight" class="form-control form-control-sm" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 text-right font-weight-bold">
 
-<h4>ZkGetOrderAddModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Add">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+                            <div class="col-sm-10">
+                                <span asp-validation-for="Weight" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-sm-2 text-right font-weight-bold">
+                                <label asp-for="Batch" class="control-label control-required"></label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input asp-for="Batch" class="form-control form-control-sm" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 text-right font-weight-bold">
+
+                            </div>
+                            <div class="col-sm-10">
+                                <span asp-validation-for="Batch" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-sm-2 text-right font-weight-bold">
+                                <label asp-for="ManufacturingDate" class="control-label"></label>
+                            </div>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(o => o.ManufacturingDate, new { Class = "easyui-datebox ", Style="width:100%"})
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 text-right font-weight-bold">
+
+                            </div>
+                            <div class="col-sm-10">
+                                <span asp-validation-for="ManufacturingDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-sm-2 text-right font-weight-bold">
+                                <label asp-for="CancelDate" class="control-label"></label>
+                            </div>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(o => o.CancelDate, new { Class = "easyui-datebox ", Style = "width:100%" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 text-right font-weight-bold">
+
+                            </div>
+                            <div class="col-sm-10">
+                                <span asp-validation-for="CancelDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-sm-2 text-right font-weight-bold">
+                                <label asp-for="OrderType" class="control-label"></label>
+                            </div>
+                            <div class="col-sm-10">
+                                @Html.DropDownListFor(o => o.OrderType, orderTypeList, new { Class = "form-control form-control-sm" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 text-right font-weight-bold"></div>
+                            <div class="col-sm-10">
+                                <span asp-validation-for="OrderType" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        @*<div class="row">
+                            <div class="col-sm-2 text-right font-weight-bold">
+                                <label asp-for="GrainUnit" class="control-label"></label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input asp-for="GrainUnit" class="form-control form-control-sm" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 text-right font-weight-bold"></div>
+                            <div class="col-sm-10">
+                                <span asp-validation-for="GrainUnit" class="text-danger"></span>
+                            </div>
+                        </div>*@
+                    </div>
+                </div>
+                
+                
             </div>
         </form>
+
+    </div>
+    <div data-options="region:'south',border:false" style="text-align:right;padding:5px 5px 5px 5px;">
+        <button class="btn btn-primary btn-sm" href="javascript:void(0)" onclick="javascript:submit1()" style="width:80px">确定</button>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<script type="text/javascript">
 
-</body>
-</html>
+    function submit1() {
+        if ($("form").valid()) {
+            $.ajax({
+                url: "/ZkGetOrder/Add",
+                type: "Post",
+                data: $("form").serialize(),
+                //data: $("#Add").serialize(),
+                dataType: "json",
+                success: function (data) {
+                    if (data.state == "ok") {
+                        window.parent.frameReturnAddTrue();
+                    }
+                    else {
+                        window.parent.frameReturnFalse(data.data);
+                    }
+                }
+            });
+        }
+    }
+
+</script>
