@@ -41,11 +41,11 @@ namespace SqlDal
 
 
 
-        public IList<FunctionDefinition> QueryOrderByName()
+        public IList<FunctionDefinition> QueryParentOrderByName()
         {
             using (var dal = new BaseDal())
             {
-                return dal.Function.OrderBy(o => o.Name).ToList();
+                return dal.Function.Where(o => o.ParentId == "0").OrderBy(o => o.Name).ToList();
             }
         }
 

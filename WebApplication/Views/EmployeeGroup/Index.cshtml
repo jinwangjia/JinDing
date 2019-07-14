@@ -96,17 +96,8 @@
             pageNumber: 1
         });
 
-        closePaginationOptions();
     }
 
-    function closePaginationOptions() {
-        //设置分页控件
-        var p = $("#tt").datagrid('getPager');
-        $(p).pagination({
-            showPageList: false,
-            showRefresh: false
-        });
-    }
 
 
 
@@ -141,9 +132,6 @@
             }
         }
 
-    $(document).ready(function () {
-        closePaginationOptions();
-    });
 
 
     </script>

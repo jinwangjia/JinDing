@@ -1,26 +1,23 @@
-﻿@model WebApplication.Models.AdministratorIndexModel
+﻿@model WebApplication.Models.ZkGetOrderJsonIndexModel
 @using SqlDal;
 @using Model;
 
 @{
-    ViewBag.Title = "Index";
-
-    var currentPage = "/Administrator/Index";
+    var currentPage = "/ZkGetOrder/Index";
     var function = new FunctionDal().FindByPage(currentPage);
-    
 }
+
 
 <div class="easyui-layout" fit="true">
     <div region="north" border="false">
-        <div class="condition1">
-            <span><button class="btn btn-primary btn-sm" href="javascript:void(0)" onclick="queryDevice()">查询</button></span>      
-        </div>
+            <div  class="condition1">
 
-    </div>
+            </div>
+        </div>
     <div region="center" border="false" style=" padding:3px 3px 3px 3px ;">
-        <table id="tt" class="easyui-datagrid" fit="true" toolbar="#tb"
-            singleSelect="true" pagination="true" pagelist="[50]" pagesize="50" striped="true" rownumbers="true"
-            url="/Administrator/JsonIndex">
+        <table id="tt" class="easyui-datagrid" fit="true" fitColumns="false" toolbar="#tb"
+               singleSelect="true" pagination="true" pagelist="[50]" pagesize="50" striped="true" rownumbers="true"
+               url="/ZkGetOrder/JsonIndex">
             <thead>
                 @await Html.PartialAsync("_TableColumn", new PartialTableColumnModel() { FunctionId = function.FunctionId, CurrentAdmin = Model.CurrentAdmin })
             </thead>
@@ -42,32 +39,30 @@
         return data;
     }
 
+    function queryData() {
 
-    function queryDevice() {
+        var beginDateTime = $("#BeginDateTime");
+        var endDateTime = $("#EndDateTime");
+
+        var beginDateTimeVal = beginDateTime.val();
+        var endDateTimeVal = endDateTime.val();
 
         $("#tt").datagrid({
+            queryParams: {
+                beginDateTime: beginDateTimeVal,
+                endDateTime: endDateTimeVal
+            },
             pageNumber: 1
         });
-
-
     }
 
     function add() {
-
-        $("#modalwindow").html("<iframe width='100%' height='100%' scrolling='auto' frameborder='0'' src='/Administrator/Add'></iframe>");
-        $("#modalwindow").window({ title: '添加', width: 900, height: 500, left: ($(window).width() - 900) / 2, top: ($(window).height() - 500) / 2,
+        $("#modalwindow").html("<iframe width='100%' height='100%' scrolling='auto' frameborder='0'' src='/ZkGetOrder/Add'></iframe>");
+        $("#modalwindow").window({
+            title: '添加', width: 1200, height: 700, left: ($(window).width() - 1200) / 2, top: ($(window).height() - 700) / 2,
             iconCls: 'icon-add'
         }).window('open');
     }
-
-    function addSysAdmin() {
-
-        $("#modalwindow").html("<iframe width='100%' height='100%' scrolling='auto' frameborder='0'' src='/Administrator/addSysAdmin'></iframe>");
-        $("#modalwindow").window({ title: '添加', width: 900, height: 500, left: ($(window).width() - 900) / 2, top: ($(window).height() - 500) / 2,
-            iconCls: 'icon-add'
-        }).window('open');
-    }
-
 
     function update() {
         var row = $('#tt').datagrid('getSelected');
@@ -75,14 +70,14 @@
             $.messageBox5s('提示', '请选择要操作的记录');
             return;
         } else {
-            var str = "<iframe width='100%' height='100%' scrolling='auto' frameborder='0'' src='/Administrator/Update?AdministratorId=" + row.AdministratorId + "'></iframe>";
+            var str = "<iframe width='100%' height='100%' scrolling='auto' frameborder='0'' src='/ZkGetOrder/Update?ZkGetOrderId=" + row.ZkGetOrderId + "'></iframe>";
             $("#modalwindow").html(str);
             $("#modalwindow").window({
                 title: '修改',
-                width: 900,
-                height: 500,
-                left: ($(window).width() - 900) / 2,
-                top: ($(window).height() - 500) / 2,
+                width: 1100,
+                height: 700,
+                left: ($(window).width() - 1100) / 2,
+                top: ($(window).height() - 700) / 2,
                 iconCls: 'icon-edit'
             }).window('open');
         }
@@ -94,7 +89,7 @@
         if (row != null) {
             $.messager.confirm('提示', '确定删除', function (r) {
                 if (r) {
-                    $.post("/Administrator/Delete?AdministratorId=" + row.AdministratorId, function (data) {
+                    $.post("/ZkGetOrder/Delete?ZkGetOrderId=" + row.ZkGetOrderId, function (data) {
                         if (data == 1) {
                             $.messageBox5s('提示', "删除成功");
                             loadData();
@@ -139,8 +134,4 @@
     }
 
 
-
 </script>
-
-
-

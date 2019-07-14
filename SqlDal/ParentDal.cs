@@ -91,7 +91,7 @@ namespace SqlDal
         {
             using (var bll = new BaseDal())
             {
-                return (from o in bll.Set<T>() select o).ToList();
+                return (from o in bll.Set<T>() select o).AsNoTracking().ToList();
             }
         }
 

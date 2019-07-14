@@ -218,7 +218,7 @@ namespace WebApplication.Controllers
         {
             FunctionAddModel model = new FunctionAddModel();
             var dal = new FunctionDal();
-            model.Functions = dal.QueryOrderByName();
+            model.Functions = dal.QueryParentOrderByName();
             model.Display = true;
             model.Pages = GetPages();
 
@@ -270,7 +270,7 @@ namespace WebApplication.Controllers
         {
             var dal = new FunctionDal();
             FunctionUpdateModel model = new FunctionUpdateModel();
-            model.Functions = dal.QueryOrderByName();
+            model.Functions = dal.QueryParentOrderByName();
 
             model.Pages = GetPages();
 
@@ -290,7 +290,7 @@ namespace WebApplication.Controllers
         public IActionResult Update(FunctionUpdateModel model)
         {
             var dal = new FunctionDal();
-            model.Functions = dal.QueryOrderByName();
+            model.Functions = dal.QueryParentOrderByName();
             FunctionDefinition function = dal.Find(model.FunctionId);
             function.ParentId = model.ParentId;
             function.Name = model.Name;
