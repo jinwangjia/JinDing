@@ -145,7 +145,7 @@ namespace WebApplication.Models
     {
         public GranariesProfile()
         {
-            CreateMap<GranariesAddModel, GranariesDefinition>().BeforeMap((dto, p) =>
+            CreateMap<GranariesAddModel, GranariesDefinition>().AfterMap((dto, p) =>
             {
                 p.GranariesId = Guid.NewGuid().ToString("N");
             });

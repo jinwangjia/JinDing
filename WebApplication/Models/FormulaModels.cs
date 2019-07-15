@@ -100,7 +100,7 @@ namespace WebApplication.Models
     {
         public FormulaProfile()
         {
-            CreateMap<FormulaAddModel, FormulaDefinition>().BeforeMap((dto, p) =>
+            CreateMap<FormulaAddModel, FormulaDefinition>().AfterMap((dto, p) =>
             {
                 p.FormulaId = Guid.NewGuid().ToString("N");
                 p.CreateDateTime = DateTime.Now;
@@ -108,7 +108,7 @@ namespace WebApplication.Models
             });
 
             CreateMap<FormulaDefinition, FormulaUpdateModel>();
-            CreateMap<FormulaUpdateModel, FormulaDefinition>().BeforeMap((dto, p) =>
+            CreateMap<FormulaUpdateModel, FormulaDefinition>().AfterMap((dto, p) =>
             {
                 p.UpdateDateTime = DateTime.Now;
             }); 

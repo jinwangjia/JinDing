@@ -21,7 +21,7 @@ namespace WebApplication.Controllers
 
         public IActionResult Index()
         {
-            var model = new ZkGetOrderJsonIndexModel()
+            var model = new ZkGetOrderJsonIndexParamModel()
             {
                 CurrentAdmin = this.CurrentAdmin,
             };
@@ -29,10 +29,18 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult JsonIndex()
+        public IActionResult JsonIndex(ZkGetOrderJsonIndexParamModel model)
         {
-
-            return Json(1);
+            var dal = new ZkGetOrderDal();
+            var param = mapper.Map<ZkGetOrderDal.QueryByParamIn>(model);
+            var list = dal.QueryByParam(param);
+            var list2 = mapper.Map<List<ZkGetOrderJsonIndexItemModel>>(list);
+            var grid = new
+            {
+                total = param.Total,
+                rows = list2,
+            };
+            return Json(grid);
         }
 
         public IActionResult Add()

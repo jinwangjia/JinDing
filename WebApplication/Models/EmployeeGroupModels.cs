@@ -153,7 +153,7 @@ namespace WebApplication.Models
     {
         public EmployeeGroupProfile()
         {
-            CreateMap<EmployeeGroupAddModel, EmployeeGroupDefinition>().BeforeMap((dto, p) =>
+            CreateMap<EmployeeGroupAddModel, EmployeeGroupDefinition>().AfterMap((dto, p) =>
             {
                 p.EmployeeGroupId = Guid.NewGuid().ToString("N");
             });
