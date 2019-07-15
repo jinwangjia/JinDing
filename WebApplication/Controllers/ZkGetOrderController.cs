@@ -31,10 +31,29 @@ namespace WebApplication.Controllers
         [HttpPost]
         public IActionResult JsonIndex(ZkGetOrderJsonIndexParamModel model)
         {
-            var dal = new ZkGetOrderDal();
+            var formulaDal = new FormulaDal();
+            var formulaList = formulaDal.Query();
+            var findFormulaName = new Func<string, string>((formulaId) => {
+                var p = formulaList.SingleOrDefault(o => o.FormulaId == formulaId);
+                if (p == null)
+                    return string.Empty;
+                return p.FormulaName;
+            });
+            var findFormulaCode = new Func<string, string>((formulaId) => {
+                var p = formulaList.SingleOrDefault(o => o.FormulaId == formulaId);
+                if (p == null)
+                    return string.Empty;
+                return p.FormulaCode;
+            });
+            var zkGetOrderDal = new ZkGetOrderDal();
             var param = mapper.Map<ZkGetOrderDal.QueryByParamIn>(model);
-            var list = dal.QueryByParam(param);
+            var list = zkGetOrderDal.QueryByParam(param);
             var list2 = mapper.Map<List<ZkGetOrderJsonIndexItemModel>>(list);
+            foreach(var p in list2)
+            {
+                p.FormulaCode = findFormulaCode(p.FormulaId);
+                p.FormulaName = findFormulaName(p.FormulaId);
+            }
             var grid = new
             {
                 total = param.Total,

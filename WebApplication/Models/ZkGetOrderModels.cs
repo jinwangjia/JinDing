@@ -48,6 +48,10 @@ namespace WebApplication.Models
         /// </summary>
         public string FormulaId { get; set; }
         /// <summary>
+        /// 配方名称
+        /// </summary>
+        public string FormulaName { get; set; }
+        /// <summary>
         /// 配方编码
         /// </summary>
         public string FormulaCode { get; set; }
