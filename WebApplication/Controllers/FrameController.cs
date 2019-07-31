@@ -13,11 +13,12 @@ namespace WebApplication.Controllers
 {
     public class FrameController : Controller
     {
+        IDistributedCache Cache;
 
         public FrameController(IDistributedCache Cache)
         {
             //https://www.cnblogs.com/szlblog/p/9045209.html
-
+            this.Cache = Cache;
         }
 
         //当前用户
@@ -26,7 +27,9 @@ namespace WebApplication.Controllers
             get
             {
                 var dal = new AdministratorDal();
-                var p = dal.Find(HttpContext.Session.GetString("CurrentAdmin"));
+                var id = HttpContext.Session.GetString("CurrentAdmin");
+                //var id = Cache.GetString("CurrentAdmin");
+                var p = dal.Find(id);
                 return  p;
             }
             set

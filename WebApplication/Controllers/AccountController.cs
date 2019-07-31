@@ -6,11 +6,17 @@ using Model;
 using SqlDal;
 using System;
 using WebApplication.Models;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace WebApplication.Controllers
 {
     public class AccountController : Controller
     {
+        IDistributedCache Cache;
+        public AccountController(IDistributedCache Cache)
+        {
+            this.Cache = Cache;
+        }
         //
         // GET: /Account/
 
@@ -39,6 +45,7 @@ namespace WebApplication.Controllers
                         CryptoHelper helper = new CryptoHelper();
                         if (p.PassWord.Trim()==helper.Encrypt(model.Password ))
                         {
+                            Cache.SetString("CurrentAdmin", p.AdministratorId);
                             HttpContext.Session.SetString("CurrentAdmin", p.AdministratorId);
                             var logMode = new LogDefinition()
                             {

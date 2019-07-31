@@ -42,7 +42,12 @@ namespace WebApplication
             });
 
             services.AddMvc();
-            services.AddSession();
+            //services.AddCaching();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(10); //session活期时间
+                options.Cookie.HttpOnly = true;//设为httponly
+            });
             services.AddAutoMapper();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddJsonOptions(options =>
